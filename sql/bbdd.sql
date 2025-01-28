@@ -1,5 +1,5 @@
-CREATE DATABASE netflix;
-USE netflix;
+CREATE DATABASE bd_netflix;
+USE bd_netflixnetflix;
 
 CREATE TABLE usuarios (
   id int(10) NOT NULL AUTO_INCREMENT,
