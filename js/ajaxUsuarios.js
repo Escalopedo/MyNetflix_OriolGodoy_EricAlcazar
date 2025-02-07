@@ -1,66 +1,52 @@
 $(document).ready(function () {
     // Acción para gestionar los usuarios: activar, desactivar, aprobar, rechazar
     $(".gestionar-usuario").click(function () {
-        let userId = $(this).data("id");
-        let accion = $(this).data("accion");
+        var userId = $(this).data("id");
+        var accion = $(this).data("accion");
+        var tr = $(this).closest("tr"); // Obtén la fila completa
 
-        // Enviar la solicitud AJAX
         $.ajax({
             url: "../php/gestionarUsuario.php",
             type: "POST",
             data: { id: userId, accion: accion },
-            dataType: "json", // Esperamos respuesta JSON
             success: function (response) {
-                // Verificamos si la respuesta contiene el estado de éxito
-                if (response.status === "success") {
-                    alert(response.message);
-                    location.reload();  // Recargar la página si la acción fue exitosa
-                } else {
-                    alert(response.message);  // Mostrar el mensaje de error si hay
+                if (response.indexOf("Acción realizada con éxito") !== -1) {
+                    // Realiza el cambio en el botón de la tabla
+                    if (accion === "activar") {
+                        tr.find("button").text("Desactivar");
+                        tr.find("button").data("accion", "desactivar");
+                        $("#tablaActivos").append(tr);
+                    } else if (accion === "desactivar") {
+                        tr.find("button").text("Activar");
+                        tr.find("button").data("accion", "activar");
+                        $("#tablaInactivos").append(tr);
+                    }
+
+                    // Esperar 2 segundos y luego recargar la lista de usuarios
+                    setTimeout(function() {
+                        obtenerUsuarios(); // Función que recarga los usuarios
+                    }, 2000); // 2000 milisegundos = 2 segundos
                 }
             },
-            error: function (jqXHR, textStatus, errorThrown) {
-                // Mejor manejo de errores con más detalles
-                console.error("Error en la solicitud:", textStatus, errorThrown);
-                alert("Hubo un error al procesar la solicitud. Por favor, inténtalo de nuevo.");
+            error: function (xhr, status, error) {
+                console.log("Error al procesar la solicitud:", error);
             }
         });
     });
-
-    // Función para aprobar usuarios (pendientes)
-    $(".gestionar-usuario[data-accion='aprobar']").click(function () {
-        let userId = $(this).data("id");
-        // Enviar solicitud para aprobar
-        gestionarUsuario(userId, 'aprobar');
-    });
-
-    // Función para rechazar usuarios (pendientes)
-    $(".gestionar-usuario[data-accion='rechazar']").click(function () {
-        let userId = $(this).data("id");
-        // Enviar solicitud para rechazar
-        gestionarUsuario(userId, 'rechazar');
-    });
-
-    // Función común para activar, desactivar, aprobar y rechazar usuarios
-    function gestionarUsuario(userId, accion) {
-        $.ajax({
-            url: "../php/gestionarUsuario.php",
-            type: "POST",
-            data: { id: userId, accion: accion },
-            dataType: "json", // Esperamos respuesta JSON
-            success: function (response) {
-                // Verificamos si la respuesta contiene el estado de éxito
-                if (response.status === "success") {
-                    location.reload();  // Recargar la página si la acción fue exitosa
-                } else {
-                    alert(response.message);  // Mostrar el mensaje de error si hay
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                // Mejor manejo de errores con más detalles
-                console.error("Error en la solicitud:", textStatus, errorThrown);
-                alert("Hubo un error al procesar la solicitud. Por favor, inténtalo de nuevo.");
-            }
-        });
-    }
 });
+
+// Función para obtener los usuarios de nuevo desde el servidor
+function obtenerUsuarios() {
+    $.ajax({
+        url: "../php/obtenerUsuarios.php", // Archivo que retorna los usuarios actualizados
+        type: "GET",
+        success: function(response) {
+            // Actualizar las tablas de usuarios con los nuevos datos
+            $('#usuariosActivos').html($(response).find('#tablaActivos').html());
+            $('#usuariosInactivos').html($(response).find('#tablaInactivos').html());
+        },
+        error: function(xhr, status, error) {
+            console.log("Error al obtener usuarios:", error);
+        }
+    });
+}

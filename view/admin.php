@@ -52,7 +52,7 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
     <!-- Sección de Usuarios -->
     <div id="usuarios" class="seccion">
         <h2>Usuarios Activos</h2>
-        <table>
+        <table id="tablaActivos">
             <tr>
                 <th>ID</th><th>Nombre</th><th>Correo</th><th>Rol</th><th>Acciones</th>
             </tr>
@@ -64,15 +64,13 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
                     <td><?= $usuario['rol'] ?></td>
                     <td>
                         <button class="gestionar-usuario btn-warning" data-id="<?= $usuario['id'] ?>" data-accion="desactivar">Desactivar</button>
-                        <button class="editar-usuario btn-primary" data-id="<?= $usuario['id'] ?>">Editar</button>
-                        <button class="eliminar-usuario btn-danger" data-id="<?= $usuario['id'] ?>">Eliminar</button>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </table>
 
         <h2>Usuarios Inactivos</h2>
-        <table>
+        <table id="tablaInactivos">
             <tr>
                 <th>ID</th><th>Nombre</th><th>Correo</th><th>Rol</th><th>Acciones</th>
             </tr>
@@ -84,15 +82,13 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
                     <td><?= $usuario['rol'] ?></td>
                     <td>
                         <button class="gestionar-usuario btn-success" data-id="<?= $usuario['id'] ?>" data-accion="activar">Activar</button>
-                        <button class="editar-usuario btn-primary" data-id="<?= $usuario['id'] ?>">Editar</button>
-                        <button class="eliminar-usuario btn-danger" data-id="<?= $usuario['id'] ?>">Eliminar</button>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </table>
 
         <h2>Usuarios Pendientes</h2>
-        <table>
+        <table id="tablaPendientes">
             <tr>
                 <th>ID</th><th>Nombre</th><th>Correo</th><th>Rol</th><th>Acciones</th>
             </tr>
