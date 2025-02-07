@@ -1,0 +1,128 @@
+/* Estilos generales */
+body {
+    background-color: #141414;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+h1, h2 {
+    color: red;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+}
+
+/* Botón de ir a inicio */
+.btn-home {
+    display: inline-block;
+    background-color: white;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.btn-home:hover {
+    background-color: gray;
+    color: white;
+}
+
+/* Botón de cierre de sesión */
+.logout {
+    display: inline-block;
+    background-color: red;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.logout:hover {
+    background-color: darkred;
+}
+
+/* Tablas */
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #222;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 15px;
+    border-bottom: 1px solid #444;
+    text-align: center;
+}
+
+th {
+    background-color: #333;
+}
+
+tr:hover {
+    background-color: #444;
+}
+
+/* Contenedor de botones */
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Imágenes */
+.img-cartelera {
+    width: 150px;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.img-cartelera:hover {
+    transform: scale(1.1);
+}
+
+/* Botones */
+.btn {
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    display: inline-block;
+    font-weight: bold;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.btn-edit {
+    background-color: white;
+    color: black;
+    border: 2px solid white;
+}
+
+.btn-delete {
+    background-color: red;
+    color: white;
+    border: 2px solid red;
+}
+
+.btn-edit:hover {
+    background-color: gray;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: darkred;
+}
+
+a {
+    text-decoration: none;
+}

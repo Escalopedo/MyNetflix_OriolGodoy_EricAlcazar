@@ -1,0 +1,114 @@
+/* Estilos generales */
+body {
+    background-color: #141414;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+header {
+    background-color: #111;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+}
+
+header .logo img {
+    width: 80px;
+    height: auto;
+    margin-right: 20px;
+}
+
+header h1 {
+    font-size: 24px;
+    color: red;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin-left: auto;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: red;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav ul li a:hover {
+    color: white;
+}
+
+/* Estilo para el detalle de la película */
+#detalle-pelicula {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.detalle-container {
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+}
+
+.detalle-imagen img {
+    width: 400px; /* Ajustar el tamaño de la imagen */
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.detalle-info {
+    max-width: 600px;
+    margin-left: 20px;
+}
+
+.detalle-info h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.detalle-info p {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.like-button {
+    background-color: #e50914;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.like-button:hover {
+    background-color: #b20710;
+}
+
+.back-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #444;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.back-button:hover {
+    background-color: #333;
+}
