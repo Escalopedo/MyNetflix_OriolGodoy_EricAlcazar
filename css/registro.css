@@ -1,0 +1,138 @@
+/* Estilo General */
+
+body {
+    background-color: rgba(0, 0, 0, 0.8);
+    background-size: cover;
+    font-family: "Funnel Sans", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+
+/* Contenedor del formulario */
+
+.registro-container {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 550px;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+}
+
+
+/* Encabezado con logo */
+
+.registro-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0px;
+}
+
+.registro-header img {
+    width: 150px;
+    height: auto;
+}
+
+
+/* Contenedor de dos columnas */
+
+.form-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+
+/* Cada columna ocupa el 48% */
+
+.form-column {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+/* Contenedor para mensajes de error */
+
+
+/* Mensajes de error */
+
+.error-container {
+    position: relative;
+    height: 16px;
+}
+
+.error-message {
+    font-size: 14px;
+    color: #ff4444;
+    margin-top: 0px;
+    text-align: center;
+    display: block;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.error-message.active {
+    opacity: 1;
+}
+
+
+/* Estilos para los labels e inputs */
+
+label {
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+input,
+button {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #222;
+    color: white;
+    font-size: 16px;
+}
+
+input:focus {
+    border-color: red;
+    outline: none;
+}
+
+
+/* Botón de registro */
+
+button {
+    margin-top: 30px;
+    padding: 12px;
+    border: none;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+    width: 100%;
+}
+
+button:hover {
+    background-color: darkred;
+}
