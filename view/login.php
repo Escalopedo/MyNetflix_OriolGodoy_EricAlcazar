@@ -37,6 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="registro-header">
         <img src="../img/OjoNetflix.png" alt="Logo">
     </div>
+    <?php if (isset($_GET['error'])): ?>
+    <p class="error-login"><?php echo htmlspecialchars($_GET['error']); ?></p>
+<?php endif; ?>
     <div class="form-grid">
     <form method="POST" action="../php/valiLogin.php">
     <label for="correo">Correo:</label>

@@ -3,7 +3,9 @@
 body {
     background-color: rgba(0, 0, 0, 0.8);
     background-size: cover;
-    font-family: 'Arial', sans-serif;
+    font-family: "Funnel Sans", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -94,6 +96,11 @@ button {
 
 
 /* Estilo del mensaje de error */
+
+.error-login {
+    color: red;
+    text-align: center
+}
 
 .error-container {
     position: relative;

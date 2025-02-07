@@ -1,18 +1,24 @@
 /* Estilos generales */
+
 body {
     background-color: #141414;
     color: white;
-    font-family: Arial, sans-serif;
+    font-family: "Funnel Sans", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
     text-align: center;
     margin: 0;
     padding: 20px;
 }
 
-h1, h2 {
+h1,
+h2 {
     color: red;
 }
 
+
 /* Header */
+
 header {
     display: flex;
     justify-content: space-between;
@@ -20,7 +26,9 @@ header {
     padding: 10px 30px;
 }
 
+
 /* Botón de ir a inicio */
+
 .btn-home {
     display: inline-block;
     background-color: white;
@@ -36,7 +44,9 @@ header {
     color: white;
 }
 
+
 /* Botón de cierre de sesión */
+
 .logout {
     display: inline-block;
     background-color: red;
@@ -49,7 +59,9 @@ header {
     background-color: darkred;
 }
 
+
 /* Tablas */
+
 table {
     width: 90%;
     margin: 20px auto;
@@ -59,7 +71,8 @@ table {
     overflow: hidden;
 }
 
-th, td {
+th,
+td {
     padding: 15px;
     border-bottom: 1px solid #444;
     text-align: center;
@@ -73,14 +86,18 @@ tr:hover {
     background-color: #444;
 }
 
+
 /* Contenedor de botones */
+
 .acciones {
     display: flex;
     justify-content: center;
     gap: 10px;
 }
 
+
 /* Imágenes */
+
 .img-cartelera {
     width: 150px;
     border-radius: 8px;
@@ -91,7 +108,9 @@ tr:hover {
     transform: scale(1.1);
 }
 
+
 /* Botones */
+
 .btn {
     padding: 10px 15px;
     border-radius: 5px;

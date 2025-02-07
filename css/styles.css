@@ -1,8 +1,11 @@
 /* Estilo inspirado en Netflix */
+
 body {
     background-color: #141414;
     color: white;
-    font-family: Arial, sans-serif;
+    font-family: "Funnel Sans", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
     margin: 0;
     padding: 0;
 }
@@ -11,38 +14,36 @@ header {
     background-color: #111;
     padding: 10px 20px;
     display: flex;
+    justify-content: center;
+    /* Centra todos los elementos en el eje horizontal */
     align-items: center;
+    /* Alinea verticalmente */
+    gap: 20px;
+    /* Espacio entre el logo y la navegación */
 }
 
 .logo img {
-    width: 80px; /* Tamaño más pequeño del logo */
+    width: 80px;
     height: auto;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-}
-
-h1 {
-    margin-left: 100px; /* Espacio para el logo */
-    font-size: 24px;
-    color: red;
 }
 
 nav ul {
     list-style: none;
     padding: 0;
-    margin-left: auto;
+    margin: 0;
+    display: flex;
+    gap: 50px;
+    /* Espacio entre los elementos */
 }
 
 nav ul li {
     display: inline;
-    margin: 0 15px;
 }
 
 nav ul li a {
     color: red;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 20px;
     transition: color 0.3s ease;
 }
 
@@ -50,13 +51,18 @@ nav ul li a:hover {
     color: white;
 }
 
+
 /* Top 5 Películas */
-#top5, #catalogo {
+
+#top5,
+#catalogo {
     padding: 20px;
     text-align: center;
 }
 
+
 /* Contenedor principal del slider */
+
 .slider-container {
     position: relative;
     width: 80%;
@@ -64,13 +70,17 @@ nav ul li a:hover {
     overflow: hidden;
 }
 
+
 /* El slider como tal */
+
 .slider {
     display: flex;
     animation: slide 20s infinite;
 }
 
+
 /* Cada slide ocupa el 100% del ancho */
+
 .slider-item {
     min-width: 100%;
     height: 400px;
@@ -80,21 +90,27 @@ nav ul li a:hover {
     position: relative;
 }
 
+
 /* Ajuste de imagen dentro del slider */
+
 .slider-item img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Asegura que la imagen se vea completamente sin cortar */
+    object-fit: contain;
+    /* Asegura que la imagen se vea completamente sin cortar */
     border-radius: 10px;
 }
 
+
 /* Título debajo de la imagen */
+
 .slider-item .titulo {
     position: absolute;
     bottom: 10px;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro para el título */
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Fondo oscuro para el título */
     color: white;
     text-align: center;
     font-size: 18px;
@@ -102,7 +118,9 @@ nav ul li a:hover {
     padding: 5px 0;
 }
 
+
 /* Animación para deslizar las imágenes */
+
 @keyframes slide {
     0% {
         transform: translateX(0%);
@@ -121,40 +139,53 @@ nav ul li a:hover {
     }
 }
 
+
 /* Estilos para el catálogo */
+
 .grid-peliculas {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Asegura que haya 5 columnas por fila */
+    grid-template-columns: repeat(5, 1fr);
+    /* Asegura que haya 5 columnas por fila */
     gap: 20px;
     padding: 20px;
 }
 
+
 /* Estilo de las imágenes dentro del catálogo */
+
 .grid-peliculas div {
     position: relative;
-    width: 100%;  /* Esto hace que ocupe el 100% de su espacio asignado */
-    height: 225px;  /* Altura para todas las imágenes */
+    width: 100%;
+    /* Esto hace que ocupe el 100% de su espacio asignado */
+    height: 225px;
+    /* Altura para todas las imágenes */
     background-size: cover;
     background-position: center;
     border-radius: 10px;
     overflow: hidden;
 }
 
+
 /* Ajuste de la imagen dentro del div */
+
 .grid-peliculas div img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Asegura que la imagen se vea completamente sin cortarse */
+    object-fit: contain;
+    /* Asegura que la imagen se vea completamente sin cortarse */
     border-radius: 10px;
 }
 
+
 /* Título con fondo oscuro y espacio debajo de la imagen */
+
 .grid-peliculas div p {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro para el título */
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Fondo oscuro para el título */
     color: white;
     font-size: 16px;
     padding: 10px;
@@ -178,12 +209,16 @@ nav ul li a:hover {
     background-color: #b20710;
 }
 
+
 /* Estilos para el formulario de búsqueda (alinear horizontalmente y centrarlo) */
+
 #filtros {
     display: flex;
-    justify-content: center; /* Centra el formulario */
+    justify-content: center;
+    /* Centra el formulario */
     align-items: center;
-    width: 100%; /* Ocupa todo el ancho */
+    width: 100%;
+    /* Ocupa todo el ancho */
     margin: 20px 0;
 }
 
@@ -191,8 +226,10 @@ nav ul li a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px; /* Espacio entre los elementos */
-    flex-wrap: wrap; /* Para que se ajuste si la pantalla es pequeña */
+    gap: 20px;
+    /* Espacio entre los elementos */
+    flex-wrap: wrap;
+    /* Para que se ajuste si la pantalla es pequeña */
     margin: 0;
 }
 
@@ -217,14 +254,24 @@ nav ul li a:hover {
     margin-right: 5px;
 }
 
+
 /* Para dispositivos móviles o pantallas pequeñas */
+
 @media (max-width: 768px) {
     #filtros form {
-        flex-direction: column; /* Apilar los elementos en pantallas más pequeñas */
+        flex-direction: column;
+        /* Apilar los elementos en pantallas más pequeñas */
         align-items: flex-start;
     }
-
     .grid-peliculas {
-        grid-template-columns: repeat(2, 1fr); /* Solo 2 columnas en pantallas pequeñas */
+        grid-template-columns: repeat(2, 1fr);
+        /* Solo 2 columnas en pantallas pequeñas */
+    }
+    nav ul li a {
+        font-size: 15px;
+    }
+    nav ul {
+        gap: 20px;
+        /* Espacio entre los elementos */
     }
 }

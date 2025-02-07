@@ -32,6 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit();
         } else {
             $errores['general'] = "Correo o contraseña incorrectos.";
+            header("Location: ../view/login.php?error=Correo%20o%20contraseña%20incorrectos");
+            exit();
+
         }
     }
 }

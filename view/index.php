@@ -62,13 +62,16 @@ $peliculas = $statement->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plataforma de Streaming</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <header>
         <div class="logo">
             <img src="../img/OjoNetflix.png" alt="Logo de la Plataforma">
         </div>
-        <h1>Netflix</h1>
         <nav>
             <ul>
                 <li><a href="index.php">Inicio</a></li>

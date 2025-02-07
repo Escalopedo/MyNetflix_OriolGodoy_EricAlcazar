@@ -1,53 +1,61 @@
 /* Estilos generales */
+
 body {
     background-color: #141414;
     color: white;
-    font-family: Arial, sans-serif;
+    font-family: "Funnel Sans", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
     margin: 0;
     padding: 0;
 }
 
+
 /* Header */
+
 header {
     background-color: #111;
     padding: 10px 20px;
     display: flex;
+    justify-content: center;
+    /* Centra todos los elementos en el eje horizontal */
     align-items: center;
+    /* Alinea verticalmente */
+    gap: 20px;
+    /* Espacio entre el logo y la navegación */
 }
 
-header .logo img {
+.logo img {
     width: 80px;
     height: auto;
-    margin-right: 20px;
-}
-
-header h1 {
-    font-size: 24px;
-    color: red;
 }
 
 nav ul {
     list-style: none;
     padding: 0;
-    margin-left: auto;
+    margin: 0;
+    display: flex;
+    gap: 50px;
+    /* Espacio entre los elementos */
 }
 
 nav ul li {
     display: inline;
-    margin: 0 15px;
 }
 
 nav ul li a {
     color: red;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 nav ul li a:hover {
     color: white;
 }
 
+
 /* Estilo para el detalle de la película */
+
 #detalle-pelicula {
     padding: 20px;
     display: flex;
@@ -62,7 +70,8 @@ nav ul li a:hover {
 }
 
 .detalle-imagen img {
-    width: 400px; /* Ajustar el tamaño de la imagen */
+    width: 400px;
+    /* Ajustar el tamaño de la imagen */
     height: auto;
     object-fit: contain;
     border-radius: 8px;
