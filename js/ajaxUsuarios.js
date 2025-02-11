@@ -3,7 +3,8 @@ $(document).ready(function () {
     $(".gestionar-usuario").click(function () {
         var userId = $(this).data("id");
         var accion = $(this).data("accion");
-        var tr = $(this).closest("tr"); // Obtén la fila completa
+        var tr = $(this).closest("tr"); // Obtiene la fila completa
+        var boton = tr.find(".gestionar-usuario"); // Encuentra el botón dentro de la fila
 
         $.ajax({
             url: "../php/gestionarUsuario.php",
@@ -11,21 +12,30 @@ $(document).ready(function () {
             data: { id: userId, accion: accion },
             success: function (response) {
                 if (response.indexOf("Acción realizada con éxito") !== -1) {
-                    // Realiza el cambio en el botón de la tabla
+                    // Verifica la acción realizada y actualiza el botón correctamente
                     if (accion === "activar") {
-                        tr.find("button").text("Desactivar");
-                        tr.find("button").data("accion", "desactivar");
+                        boton.text("Desactivar");
+                        boton.data("accion", "desactivar");
                         $("#tablaActivos").append(tr);
                     } else if (accion === "desactivar") {
-                        tr.find("button").text("Activar");
-                        tr.find("button").data("accion", "activar");
+                        boton.text("Activar");
+                        boton.data("accion", "activar");
                         $("#tablaInactivos").append(tr);
+                    } else if (accion === "aprobar") {
+                        boton.text("Desactivar");
+                        boton.data("accion", "desactivar");
+                        $("#tablaActivos").append(tr);
+                    } else if (accion === "rechazar") {
+                        tr.remove(); // Si se rechaza, elimina la fila
                     }
 
-                    // Esperar 2 segundos y luego recargar la lista de usuarios
+                    // Remueve posibles duplicados de botones en la fila
+                    tr.find(".gestionar-usuario").not(":first").remove();
+
+                    // Recargar la lista de usuarios después de 2 segundos
                     setTimeout(function() {
-                        obtenerUsuarios(); // Función que recarga los usuarios
-                    }, 2000); // 2000 milisegundos = 2 segundos
+                        obtenerUsuarios();
+                    }, 2000);
                 }
             },
             error: function (xhr, status, error) {
@@ -41,7 +51,6 @@ function obtenerUsuarios() {
         url: "../php/obtenerUsuarios.php", // Archivo que retorna los usuarios actualizados
         type: "GET",
         success: function(response) {
-            // Actualizar las tablas de usuarios con los nuevos datos
             $('#usuariosActivos').html($(response).find('#tablaActivos').html());
             $('#usuariosInactivos').html($(response).find('#tablaInactivos').html());
         },
