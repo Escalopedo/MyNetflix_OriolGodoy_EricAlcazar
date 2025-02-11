@@ -4,7 +4,7 @@ include('../php/conexion.php');
 
 // Verificar si el usuario es administrador
 if (!isset($_SESSION['user_id']) || $_SESSION['rol'] !== 'admin') {
-    header('Location: ../index.php');
+    header('Location: ../view/index.php');
     exit();
 }
 
