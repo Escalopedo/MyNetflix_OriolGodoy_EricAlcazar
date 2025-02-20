@@ -39,6 +39,20 @@ if (isset($_GET['id'])) {
             $liked = true;
         }
     }
+
+    // Obtener los géneros asociados a la película
+    $queryGeneros = $conexion->prepare("SELECT g.nombre FROM generos g
+                                        JOIN cartelera_generos cg ON g.id = cg.id_genero
+                                        WHERE cg.id_cartelera = :id_pelicula");
+    $queryGeneros->bindParam(':id_pelicula', $id_pelicula, PDO::PARAM_INT);
+    $queryGeneros->execute();
+    $generos = $queryGeneros->fetchAll(PDO::FETCH_ASSOC);
+
+    // Crear un array de los nombres de los géneros
+    $generos_pelicula = array_map(function($genero) {
+        return $genero['nombre'];
+    }, $generos);
+    $generos_pelicula_str = implode(", ", $generos_pelicula); // Unir los géneros en una cadena separada por comas
 } else {
     header("Location: index.php");
     exit();
@@ -55,9 +69,8 @@ if (isset($_GET['id'])) {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../js/likes.js" defer></script> <!-- Enlazar el archivo de AJAX -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -85,6 +98,9 @@ if (isset($_GET['id'])) {
             <div class="detalle-info">
                 <h2><?php echo $pelicula['titulo']; ?></h2>
                 <p><strong>Descripción:</strong> <?php echo $pelicula['descripcion']; ?></p>
+
+                <!-- Mostrar género de la película -->
+                <p><strong>Género:</strong> <?php echo $generos_pelicula_str; ?></p>
 
                 <!-- Mostrar número de likes -->
                 <p><strong>Likes:</strong> <span id="num-likes"><?php echo $num_likes; ?></span></p>
