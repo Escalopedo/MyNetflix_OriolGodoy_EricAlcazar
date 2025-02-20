@@ -1,4 +1,5 @@
-<?php
+<?php 
+
 session_start();
 include('conexion.php');
 
@@ -17,14 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $queryTelefono = $conexion->prepare("SELECT id FROM usuarios WHERE telefono = :telefono");
     $queryTelefono->execute(['telefono' => $telefono]);
 
-    // Validaciones
     if ($queryCorreo->rowCount() > 0) {
         $_SESSION['error'] = "El correo ya está registrado.";
     } elseif ($queryTelefono->rowCount() > 0) {
         $_SESSION['error'] = "El teléfono ya está registrado.";
-    } elseif (!preg_match("/^[0-9]{9}$/", $telefono)) {  // Solo acepta 10 dígitos
+    } elseif (!preg_match("/^[0-9]{9}$/", $telefono)) {
         $_SESSION['error'] = "El teléfono debe tener 9 dígitos.";
-    } elseif (strlen($contrasena) < 8) {  // Contraseña mínima de 8 caracteres
+    } elseif (strlen($contrasena) < 8) {
         $_SESSION['error'] = "La contraseña debe tener al menos 8 caracteres.";
     } elseif ($contrasena !== $confirmar_contrasena) {
         $_SESSION['error'] = "Las contraseñas no coinciden.";
@@ -32,8 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Encriptar contraseña
         $contrasena_hash = password_hash($contrasena, PASSWORD_DEFAULT);
 
-        // Insertar en la base de datos
-        $query = $conexion->prepare("INSERT INTO usuarios (nombre, apellido, correo, contrasena, telefono) VALUES (:nombre, :apellido, :correo, :contrasena, :telefono)");
+        // Insertar en la base de datos con estado 'pendiente'
+        $query = $conexion->prepare("INSERT INTO usuarios (nombre, apellido, correo, contrasena, telefono, estado) 
+                                     VALUES (:nombre, :apellido, :correo, :contrasena, :telefono, 'pendiente')");
 
         $insertado = $query->execute([
             'nombre' => $nombre,
@@ -44,15 +45,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ]);
 
         if ($insertado) {
-            $_SESSION['success'] = "Registro exitoso. ¡Ahora puedes iniciar sesión!";
-            header("Location: ../view/login.php");
-            exit();
+            $_SESSION['success'] = "Registro exitoso. Un administrador debe aprobar tu cuenta.";
         } else {
             $_SESSION['error'] = "Error en el registro. Inténtalo de nuevo.";
         }
     }
 
-    // Volver a registro.php con el mensaje de error
     header("Location: ../view/registro.php");
     exit();
 }
