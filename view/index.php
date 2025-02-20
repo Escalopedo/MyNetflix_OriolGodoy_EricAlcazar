@@ -65,7 +65,6 @@ $peliculas = $statement->fetchAll(PDO::FETCH_ASSOC);
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-
 </head>
 <body>
     <header>
@@ -74,7 +73,6 @@ $peliculas = $statement->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <nav>
             <ul>
-                <li><a href="index.php">Inicio</a></li>
                 <?php if ($userRole === 'admin'): ?>
                         <li><a href="admin.php">Admin</a></li>
                     <?php endif; ?>

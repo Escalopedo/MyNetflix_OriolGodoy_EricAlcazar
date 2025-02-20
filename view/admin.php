@@ -2,6 +2,11 @@
 session_start();
 include('../php/conexion.php');
 
+$userRole = $_SESSION['rol'] ?? ''; 
+
+// Comprobar si el usuario está logueado
+$loggedIn = isset($_SESSION['user_id']);
+
 // Verificar si el usuario es administrador
 if (!isset($_SESSION['user_id']) || $_SESSION['rol'] !== 'admin') {
     header('Location: ../view/index.php');
@@ -35,17 +40,34 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
     <title>Panel de Administración</title>
     <link rel="stylesheet" href="../css/admin.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
     <!-- Barra de navegación -->
-    <nav>
+    <header>
+        <div class="logo">
+            <img src="../img/OjoNetflix.png" alt="Logo de la Plataforma">
+        </div>
+        <nav>
+            <ul>
+                <?php if ($loggedIn): ?>
+                <li><a href="index.php">Inicio</a></li>
+                    <li><a href="../php/logout.php">Cerrar sesión</a></li>
+                <?php endif; ?>
+            </ul>
+        </nav>
+    </header>
+    <div class="link-tipo">
         <ul>
             <li><a href="#" class="nav-link" data-seccion="usuarios">Usuarios</a></li>
             <li><a href="#" class="nav-link" data-seccion="generos">Géneros</a></li>
             <li><a href="#" class="nav-link" data-seccion="carteleras">Carteleras</a></li>
         </ul>
-    </nav>
+                </div>
 
     <h1>Administración de Contenidos</h1>
 
@@ -63,7 +85,7 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
                     <td><?= $usuario['correo'] ?></td>
                     <td><?= $usuario['rol'] ?></td>
                     <td>
-                        <button class="gestionar-usuario btn-warning" data-id="<?= $usuario['id'] ?>" data-accion="desactivar">Desactivar</button>
+                        <button class=" btn-tabla gestionar-usuario btn-warning" data-id="<?= $usuario['id'] ?>" data-accion="desactivar">Desactivar</button>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -81,7 +103,7 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
                     <td><?= $usuario['correo'] ?></td>
                     <td><?= $usuario['rol'] ?></td>
                     <td>
-                        <button class="gestionar-usuario btn-success" data-id="<?= $usuario['id'] ?>" data-accion="activar">Activar</button>
+                        <button class="btn-tabla gestionar-usuario btn-success" data-id="<?= $usuario['id'] ?>" data-accion="activar">Activar</button>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -99,8 +121,8 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
                     <td><?= $usuario['correo'] ?></td>
                     <td><?= $usuario['rol'] ?></td>
                     <td>
-                        <button class="gestionar-usuario btn-primary" data-id="<?= $usuario['id'] ?>" data-accion="aprobar">Aprobar</button>
-                        <button class="gestionar-usuario btn-danger" data-id="<?= $usuario['id'] ?>" data-accion="rechazar">Rechazar</button>
+                        <button class="btn-tabla gestionar-usuario btn-primary" data-id="<?= $usuario['id'] ?>" data-accion="aprobar">Aprobar</button>
+                        <button class="btn-tabla gestionar-usuario btn-danger" data-id="<?= $usuario['id'] ?>" data-accion="rechazar">Rechazar</button>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -119,13 +141,13 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
                     <td><?= $genero['id'] ?></td>
                     <td><?= $genero['nombre'] ?></td>
                     <td>
-                        <button class="editar-genero btn-primary" data-id="<?= $genero['id'] ?>">Editar</button>
-                        <button class="eliminar-genero btn-danger" data-id="<?= $genero['id'] ?>">Eliminar</button>
+                        <button class="btn-tabla editar-genero btn-primary" data-id="<?= $genero['id'] ?>">Editar</button>
+                        <button class="btn-tabla eliminar-genero btn-danger" data-id="<?= $genero['id'] ?>">Eliminar</button>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </table>
-        <button class="crear-genero btn-success">Crear Género</button>
+        <button class="btn-tabla crear-genero btn-success">Crear Género</button>
     </div>
 
     <!-- Sección de Carteleras -->
@@ -148,13 +170,13 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
                         <?php endif; ?>
                     </td>
                     <td>
-                        <button class="editar-cartelera btn-primary" data-id="<?= $cartelera['id'] ?>">Editar</button>
-                        <button class="eliminar-cartelera btn-danger" data-id="<?= $cartelera['id'] ?>">Eliminar</button>
+                        <button class="btn-tabla editar-cartelera btn-primary" data-id="<?= $cartelera['id'] ?>">Editar</button>
+                        <button class="btn-tabla eliminar-cartelera btn-danger" data-id="<?= $cartelera['id'] ?>">Eliminar</button>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </table>
-        <button class="crear-cartelera btn-success">Crear Cartelera</button>
+        <button class="btn-tabla crear-cartelera btn-success">Crear Cartelera</button>
     </div>
 
     <script src="../js/ajaxUsuarios.js"></script>

@@ -8,7 +8,7 @@ body {
     font-style: normal;
     text-align: center;
     margin: 0;
-    padding: 20px;
+    padding: 0px;
 }
 
 h1,
@@ -20,10 +20,44 @@ h2 {
 /* Header */
 
 header {
+    background-color: #111;
+    padding: 10px 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    /* Centra todos los elementos en el eje horizontal */
     align-items: center;
-    padding: 10px 30px;
+    /* Alinea verticalmente */
+    gap: 20px;
+    /* Espacio entre el logo y la navegación */
+}
+
+.logo img {
+    width: 80px;
+    height: auto;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 50px;
+    /* Espacio entre los elementos */
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: red;
+    text-decoration: none;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: white;
 }
 
 
@@ -57,6 +91,37 @@ header {
 
 .logout:hover {
     background-color: darkred;
+}
+
+
+/* Links tipo  */
+
+.link-tipo {
+    margin-left: 470px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.link-tipo ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 50px;
+    /* Espacio entre los elementos */
+}
+
+.link-tipo li a {
+    color: red;
+    text-decoration: none;
+    font-size: 20px;
+    transition: color 0.3s ease;
+    box-shadow: #64646488 -1px -1px 5px 2px;
+    padding: 10px;
+}
+
+.link-tipo li a:hover {
+    background-color: rgba(128, 128, 128, 0.301);
 }
 
 
@@ -95,6 +160,25 @@ tr:hover {
     gap: 10px;
 }
 
+.btn-tabla {
+    background-color: red;
+    color: white;
+    padding: 10px;
+    border: none;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-family: "Funnel Sans", serif;
+}
+
+.btn-tabla:hover {
+    background-color: rgba(0, 0, 0, 0.616);
+}
+
+.editar-cartelera {
+    width: 70px;
+}
+
 
 /* Imágenes */
 
@@ -119,27 +203,6 @@ tr:hover {
     font-weight: bold;
     text-align: center;
     transition: 0.3s;
-}
-
-.btn-edit {
-    background-color: white;
-    color: black;
-    border: 2px solid white;
-}
-
-.btn-delete {
-    background-color: red;
-    color: white;
-    border: 2px solid red;
-}
-
-.btn-edit:hover {
-    background-color: gray;
-    color: white;
-}
-
-.btn-delete:hover {
-    background-color: darkred;
 }
 
 a {
