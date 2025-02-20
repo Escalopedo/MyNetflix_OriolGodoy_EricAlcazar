@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
 <div class="registro-container">
     <div class="registro-header">
-        <img src="../img/OjoNetflix.png" alt="Logo">
+        <a href="index.php"><img src="../img/OjoNetflix.png" alt="Logo"></a>
     </div>
     <?php if (isset($_GET['error'])): ?>
     <p class="error-login"><?php echo htmlspecialchars($_GET['error']); ?></p>

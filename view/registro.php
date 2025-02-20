@@ -23,7 +23,7 @@ unset($_SESSION['success']);
 <body>
 <div class="registro-container">
     <div class="registro-header">
-        <img src="../img/OjoNetflix.png" alt="Logo">
+    <a href="index.php"><img src="../img/OjoNetflix.png" alt="Logo"></a>
     </div>
 
     <!-- Mostrar mensaje de error si existe -->

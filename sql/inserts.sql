@@ -1,3 +1,4 @@
+
 INSERT INTO generos (nombre) VALUES
   ('Acción'),
   ('Aventura'),
