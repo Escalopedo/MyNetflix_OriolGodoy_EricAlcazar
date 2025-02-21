@@ -14,23 +14,34 @@ CREATE TABLE usuarios (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Tabla de Carteleras (Películas)
+-- Nueva tabla de Directores
+CREATE TABLE directores (
+  id INT(10) NOT NULL AUTO_INCREMENT,
+  nombre VARCHAR(100) NOT NULL,
+  fecha_nacimiento YEAR NOT NULL,
+  descripcion TEXT NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Tabla de Carteleras (Películas) con relación a Directores
 CREATE TABLE carteleras (
   id INT(10) NOT NULL AUTO_INCREMENT,
   titulo VARCHAR(40) NOT NULL,
   descripcion VARCHAR(500) NOT NULL,
   img VARCHAR(155) NOT NULL,
-  PRIMARY KEY (id)
+  id_director INT(10) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (id_director) REFERENCES directores(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Nueva tabla de Géneros
+-- Tabla de Géneros
 CREATE TABLE generos (
   id INT(10) NOT NULL AUTO_INCREMENT,
   nombre VARCHAR(30) NOT NULL UNIQUE,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Nueva tabla intermedia para relación N:M entre carteleras y géneros
+-- Tabla intermedia para relación N:M entre carteleras y géneros
 CREATE TABLE cartelera_generos (
   id_cartelera INT(10) NOT NULL,
   id_genero INT(10) NOT NULL,
