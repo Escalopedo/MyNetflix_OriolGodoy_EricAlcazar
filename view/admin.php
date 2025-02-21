@@ -28,11 +28,12 @@ $queryGeneros = "SELECT * FROM generos";
 $generos = $conexion->query($queryGeneros)->fetchAll(PDO::FETCH_ASSOC);
 
 $queryCarteleras = "
-    SELECT c.*, GROUP_CONCAT(g.nombre SEPARATOR ', ') AS generos
+    SELECT c.*, d.nombre AS director, GROUP_CONCAT(g.nombre SEPARATOR ', ') AS generos
     FROM carteleras c
+    LEFT JOIN directores d ON c.id_director = d.id
     LEFT JOIN cartelera_generos cg ON c.id = cg.id_cartelera
     LEFT JOIN generos g ON cg.id_genero = g.id
-    GROUP BY c.id
+    GROUP BY c.id, d.nombre
 ";
 
 $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
@@ -183,6 +184,7 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
                 <th>Título</th>
                 <th>Descripción</th>
                 <th>Géneros</th>
+                <th>Director</th>
                 <th>Imagen</th>
                 <th>Acciones</th>
             </tr>
@@ -192,6 +194,7 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
                     <td><?= $cartelera['titulo'] ?></td>
                     <td><?= $cartelera['descripcion'] ?></td>
                     <td><?= $cartelera['generos'] ?></td>
+                    <td><?= $cartelera['director'] ?></td>   
                     <td>
                         <?php if (!empty($cartelera['img'])): ?>
                             <img src="../img/<?= $cartelera['img'] ?>" alt="Imagen de la cartelera" width="100" height="100">
