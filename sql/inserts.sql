@@ -41,7 +41,12 @@ INSERT INTO usuarios (rol, nombre, apellido, correo, contrasena, telefono, estad
   ('admin', 'Ori', 'Godoy', 'ori@gmail.com', '$2y$10$JKf/1XySKIXHodgLZi4rpOVYR8NnBLVVKXeWr9WDKhTdVxP3q3DnS', '619421222', 'activo'),
   ('cliente', 'Alberto', 'DeSantos', 'alberto@gmail.com', '$2y$10$JKf/1XySKIXHodgLZi4rpOVYR8NnBLVVKXeWr9WDKhTdVxP3q3DnS', '600000001', 'activo'),
   ('cliente', 'Fatima', 'Martinez', 'fatima@gmail.com', '$2y$10$JKf/1XySKIXHodgLZi4rpOVYR8NnBLVVKXeWr9WDKhTdVxP3q3DnS', '600000002', 'activo'),
-  ('cliente', 'Agnes', 'Plans', 'agnes@gmail.com', '$2y$10$JKf/1XySKIXHodgLZi4rpOVYR8NnBLVVKXeWr9WDKhTdVxP3q3DnS', '600000003', 'activo');
+  ('cliente', 'Agnes', 'Plans', 'agnes@gmail.com', '$2y$10$JKf/1XySKIXHodgLZi4rpOVYR8NnBLVVKXeWr9WDKhTdVxP3q3DnS', '600000003', 'activo'),
+  ('cliente', 'David', 'Alvarez', 'david@gmail.com', '$2y$10$JKf/1XySKIXHodgLZi4rpOVYR8NnBLVVKXeWr9WDKhTdVxP3q3DnS', '600000004', 'inactivo'),
+  ('cliente', 'Alex', 'Ventura', 'agnes@gmail.com', '$2y$10$JKf/1XySKIXHodgLZi4rpOVYR8NnBLVVKXeWr9WDKhTdVxP3q3DnS', '600000005', 'inactivo'),
+  ('cliente', 'David', 'Hompanera', 'davidH@gmail.com', '$2y$10$JKf/1XySKIXHodgLZi4rpOVYR8NnBLVVKXeWr9WDKhTdVxP3q3DnS', '600000006', 'pendiente'),
+  ('cliente', 'Christian', 'Monrabal', 'christian@gmail.com', '$2y$10$JKf/1XySKIXHodgLZi4rpOVYR8NnBLVVKXeWr9WDKhTdVxP3q3DnS', '600000007', 'pendiente');
+
   
 INSERT INTO carteleras (titulo, descripcion, img, id_director) VALUES
   ('Batman Begins', 'El origen de Batman, donde Bruce Wayne se convierte en el Caballero Oscuro para luchar contra el crimen en Gotham City.', 'batman_begins.jpg', 1),
