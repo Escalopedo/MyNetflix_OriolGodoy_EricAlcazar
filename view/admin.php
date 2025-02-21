@@ -43,6 +43,9 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+<!-- SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 </head>
 <body>
@@ -177,10 +180,33 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </table>
         <button class="btn-tabla crear-cartelera btn-success">Crear Cartelera</button>
+        <!-- Modal de Edición de Cartelera -->
+<div id="modalEditarCartelera" class="modal">
+    <div class="modal-contenido">
+        <span class="cerrar">&times;</span>
+        <h2>Editar Cartelera</h2>
+        <form id="formEditarCartelera" enctype="multipart/form-data">
+            <input type="hidden" id="editCarteleraId">
+            
+            <label for="editTitulo">Título:</label>
+            <input type="text" id="editTitulo" name="titulo" required>
+
+            <label for="editDescripcion">Descripción:</label>
+            <textarea id="editDescripcion" name="descripcion" required></textarea>
+
+            <label for="editImg">Imagen:</label>
+            <input type="file" id="editImg" name="img">
+
+            <img id="prevImg" src="" alt="Imagen actual" width="100" height="100">
+
+            <button type="submit" class="btn-tabla btn-success">Guardar Cambios</button>
+        </form>
+    </div>
+</div>
+
     </div>
 
     <script src="../js/ajaxUsuarios.js"></script>
     <script src="../js/adminAjax.js"></script>
-
 </body>
 </html>
