@@ -20,6 +20,7 @@ CREATE TABLE directores (
   nombre VARCHAR(100) NOT NULL,
   fecha_nacimiento YEAR NOT NULL,
   descripcion TEXT NOT NULL,
+  img VARCHAR(155) NOT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

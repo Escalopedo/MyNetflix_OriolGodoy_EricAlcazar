@@ -10,10 +10,14 @@ if (isset($_GET['id'])) {
     $id_pelicula = $_GET['id'];
 
     // Obtener los detalles de la película
-    $query = $conexion->prepare("SELECT * FROM carteleras WHERE id = :id_pelicula");
+    $query = $conexion->prepare("SELECT c.*, d.nombre AS director
+    FROM carteleras c
+    LEFT JOIN directores d ON c.id_director = d.id
+    WHERE c.id = :id_pelicula");
     $query->bindParam(':id_pelicula', $id_pelicula, PDO::PARAM_INT);
     $query->execute();
     $pelicula = $query->fetch(PDO::FETCH_ASSOC);
+
     
     // Si no se encuentra la película, redirigir al inicio
     if (!$pelicula) {
@@ -114,6 +118,12 @@ if (isset($_GET['id'])) {
                     <!-- Si no está logueado, no puede dar Like -->
                     <p>Inicia sesión para dar Like.</p>
                 <?php endif; ?>
+
+                <p><strong>Director:</strong> 
+                    <a href="detallesDirector.php?id=<?php echo $pelicula['id_director']; ?>">
+                        <?php echo $pelicula['director']; ?>
+                    </a>
+                </p>
 
                 <a href="index.php" class="back-button">Volver al catálogo</a>
             </div>

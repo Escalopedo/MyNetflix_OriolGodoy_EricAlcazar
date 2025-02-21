@@ -1,23 +1,23 @@
 
 
-INSERT INTO directores (nombre, fecha_nacimiento, descripcion) VALUES
-  ('Christopher Nolan', 1970, 'Director británico conocido por películas como la trilogía de Batman y Inception.'),
-  ('Zack Snyder', 1966, 'Director de películas de acción y superhéroes como 300 y Batman v Superman.'),
-  ('Matt Reeves', 1966, 'Director estadounidense conocido por dirigir The Batman y la saga El planeta de los simios.'),
-  ('Peter Jackson', 1961, 'Director neozelandés famoso por la trilogía de El Señor de los Anillos.'),
-  ('David Yates', 1963, 'Director británico que dirigió varias películas de Harry Potter.'),
-  ('Jon Favreau', 1966, 'Director y actor estadounidense, director de El Rey León (2019) y Iron Man.'),
-  ('James Cameron', 1954, 'Director canadiense de grandes éxitos como Titanic y Avatar.'),
-  ('Steven Spielberg', 1946, 'Director legendario de películas como Jurassic Park y Tiburón.'),
-  ('Anthony Russo y Joe Russo', 1970, 'Hermanos directores de varias películas de Marvel, incluyendo Infinity War.'),
-  ('John Lasseter', 1957, 'Animador y director estadounidense, clave en el éxito de Pixar.'),
-  ('Brad Bird', 1957, 'Director de Los Increíbles y Ratatouille.'),
-  ('Damien Chazelle', 1985, 'Director de Whiplash y La La Land.'),
-  ('Chris Wedge', 1957, 'Director de Robots y fundador de Blue Sky Studios.'),
-  ('Lana Wachowski y Lilly Wachowski', 1965, 'Hermanas directoras de la saga de The Matrix.'),
-  ('Lee Unkrich', 1967, 'Director de Coco y editor en Toy Story.'),
-  ('James Wan', 1977, 'Director de El Conjuro y creador de la saga Saw.'),
-  ('Christopher Nolan', 1970, 'Director británico de películas como Interstellar y Dunkirk.');
+INSERT INTO directores (nombre, fecha_nacimiento, descripcion, img) VALUES
+  ('Christopher Nolan', 1970, 'Director británico conocido por películas como la trilogía de Batman y Inception.', 'nolan.jpg'),
+  ('Zack Snyder', 1966, 'Director de películas de acción y superhéroes como 300 y Batman v Superman.', 'snyder.jpg'),
+  ('Matt Reeves', 1966, 'Director estadounidense conocido por dirigir The Batman y la saga El planeta de los simios.', 'reeves.jpg'),
+  ('Peter Jackson', 1961, 'Director neozelandés famoso por la trilogía de El Señor de los Anillos.', 'jackson.jpg'),
+  ('David Yates', 1963, 'Director británico que dirigió varias películas de Harry Potter.', 'yates.jpg'),
+  ('Jon Favreau', 1966, 'Director y actor estadounidense, director de El Rey León (2019) y Iron Man.', 'favreau.jpg'),
+  ('James Cameron', 1954, 'Director canadiense de grandes éxitos como Titanic y Avatar.', 'cameron.jpg'),
+  ('Steven Spielberg', 1946, 'Director legendario de películas como Jurassic Park y Tiburón.', 'spielberg.jpg'),
+  ('Anthony Russo y Joe Russo', 1970, 'Hermanos directores de varias películas de Marvel, incluyendo Infinity War.', 'russo.jpg'),
+  ('John Lasseter', 1957, 'Animador y director estadounidense, clave en el éxito de Pixar.', 'lasseter.jpg'),
+  ('Brad Bird', 1957, 'Director de Los Increíbles y Ratatouille.', 'bird.jpg'),
+  ('Damien Chazelle', 1985, 'Director de Whiplash y La La Land.', 'chazelle.jpg'),
+  ('Chris Wedge', 1957, 'Director de Robots y fundador de Blue Sky Studios.', 'wedge.jpg'),
+  ('Lana Wachowski y Lilly Wachowski', 1965, 'Hermanas directoras de la saga de The Matrix.', 'wachowski.jpg'),
+  ('Lee Unkrich', 1967, 'Director de Coco y editor en Toy Story.', 'unkrich.jpg'),
+  ('James Wan', 1977, 'Director de El Conjuro y creador de la saga Saw.', 'wan.jpg'),
+  ('Christopher Nolan', 1970, 'Director británico de películas como Interstellar y Dunkirk.', 'nolan.jpg');
 
 
 INSERT INTO generos (nombre) VALUES
