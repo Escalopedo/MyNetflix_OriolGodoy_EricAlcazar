@@ -86,7 +86,11 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
         <h2>Usuarios Activos</h2>
         <table id="tablaActivos">
             <tr>
-                <th>ID</th><th>Nombre</th><th>Correo</th><th>Rol</th><th>Acciones</th>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Acciones</th>
             </tr>
             <?php foreach ($usuariosActivos as $usuario) : ?>
                 <tr id="usuario_<?= $usuario['id'] ?>">
@@ -104,7 +108,11 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
         <h2>Usuarios Inactivos</h2>
         <table id="tablaInactivos">
             <tr>
-                <th>ID</th><th>Nombre</th><th>Correo</th><th>Rol</th><th>Acciones</th>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Acciones</th>
             </tr>
             <?php foreach ($usuariosInactivos as $usuario) : ?>
                 <tr id="usuario_<?= $usuario['id'] ?>">
@@ -122,7 +130,11 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
         <h2>Usuarios Pendientes</h2>
         <table id="tablaPendientes">
             <tr>
-                <th>ID</th><th>Nombre</th><th>Correo</th><th>Rol</th><th>Acciones</th>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Acciones</th>
             </tr>
             <?php foreach ($usuariosPendientes as $usuario) : ?>
                 <tr id="usuario_<?= $usuario['id'] ?>">
@@ -144,7 +156,9 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
         <h2>Géneros</h2>
         <table>
             <tr>
-                <th>ID</th><th>Nombre</th><th>Acciones</th>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
             </tr>
             <?php foreach ($generos as $genero) : ?>
                 <tr>
@@ -165,7 +179,12 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
         <h2>Carteleras</h2>
         <table>
             <tr>
-                <th>ID</th><th>Título</th><th>Descripción</th><th>Géneros</th><th>Imagen</th><th>Acciones</th>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Géneros</th>
+                <th>Imagen</th>
+                <th>Acciones</th>
             </tr>
             <?php foreach ($carteleras as $cartelera) : ?>
                 <tr>
