@@ -1,7 +1,7 @@
 
 
 INSERT INTO directores (nombre, fecha_nacimiento, descripcion, img) VALUES
-  ('Christopher Nolan', 1970, 'Director británico conocido por películas como la trilogía de Batman y Inception.', 'nolan.jpg'),
+  ('Christopher Nolan', 1970, 'Director británico conocido por películas como la trilogía de Batman y Inception.', 'nolan.jpeg'),
   ('Zack Snyder', 1966, 'Director de películas de acción y superhéroes como 300 y Batman v Superman.', 'snyder.jpg'),
   ('Matt Reeves', 1966, 'Director estadounidense conocido por dirigir The Batman y la saga El planeta de los simios.', 'reeves.jpg'),
   ('Peter Jackson', 1961, 'Director neozelandés famoso por la trilogía de El Señor de los Anillos.', 'jackson.jpg'),
