@@ -43,7 +43,7 @@ INSERT INTO usuarios (rol, nombre, apellido, correo, contrasena, telefono, estad
   ('cliente', 'Fatima', 'Martinez', 'fatima@gmail.com', '$2y$10$JKf/1XySKIXHodgLZi4rpOVYR8NnBLVVKXeWr9WDKhTdVxP3q3DnS', '600000002', 'activo'),
   ('cliente', 'Agnes', 'Plans', 'agnes@gmail.com', '$2y$10$JKf/1XySKIXHodgLZi4rpOVYR8NnBLVVKXeWr9WDKhTdVxP3q3DnS', '600000003', 'activo'),
   ('cliente', 'David', 'Alvarez', 'david@gmail.com', '$2y$10$JKf/1XySKIXHodgLZi4rpOVYR8NnBLVVKXeWr9WDKhTdVxP3q3DnS', '600000004', 'inactivo'),
-  ('cliente', 'Alex', 'Ventura', 'agnes@gmail.com', '$2y$10$JKf/1XySKIXHodgLZi4rpOVYR8NnBLVVKXeWr9WDKhTdVxP3q3DnS', '600000005', 'inactivo'),
+  ('cliente', 'Alex', 'Ventura', 'alex@gmail.com', '$2y$10$JKf/1XySKIXHodgLZi4rpOVYR8NnBLVVKXeWr9WDKhTdVxP3q3DnS', '600000005', 'inactivo'),
   ('cliente', 'David', 'Hompanera', 'davidH@gmail.com', '$2y$10$JKf/1XySKIXHodgLZi4rpOVYR8NnBLVVKXeWr9WDKhTdVxP3q3DnS', '600000006', 'pendiente'),
   ('cliente', 'Christian', 'Monrabal', 'christian@gmail.com', '$2y$10$JKf/1XySKIXHodgLZi4rpOVYR8NnBLVVKXeWr9WDKhTdVxP3q3DnS', '600000007', 'pendiente');
 
