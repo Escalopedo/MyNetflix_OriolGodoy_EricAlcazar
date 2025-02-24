@@ -171,6 +171,35 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
         </form>
     </div>
 </div>
+<!-- Modal para crear cartelera -->
+<div id="modalCrearCartelera" class="modal">
+    <div class="modal-contenido">
+        <span class="cerrar">&times;</span>
+        <h2>Crear Cartelera</h2>
+        <form id="formCrearCartelera" enctype="multipart/form-data">
+            <label for="crearTitulo">Título:</label>
+            <input type="text" id="crearTitulo" name="titulo" required>
+            <label for="crearDescripcion">Descripción:</label>
+            <textarea id="crearDescripcion" name="descripcion" required></textarea>
+            <label for="crearDirector">Director:</label>
+            <select id="crearDirector" name="director" required>
+                <option value="">Selecciona un director</option>
+                <?php foreach ($directores as $director): ?>
+                    <option value="<?= $director['id'] ?>"><?= htmlspecialchars($director['nombre']) ?></option>
+                <?php endforeach; ?>
+            </select>
+            <label for="crearGeneros">Géneros:</label>
+            <select id="crearGeneros" name="generos[]" multiple size="5" required>
+                <?php foreach ($generos as $genero): ?>
+                    <option value="<?= $genero['id'] ?>"><?= htmlspecialchars($genero['nombre']) ?></option>
+                <?php endforeach; ?>
+            </select>
+            <label for="crearImg">Imagen:</label>
+            <input type="file" id="crearImg" name="img">
+            <button type="submit" class="btn-tabla btn-success">Crear Cartelera</button>
+        </form>
+    </div>
+</div>
 <script src="../js/ajaxUsuarios.js"></script>
 <script src="../js/adminAjax.js"></script>
 </body>
