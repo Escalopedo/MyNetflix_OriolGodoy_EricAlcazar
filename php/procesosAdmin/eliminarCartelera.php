@@ -1,5 +1,5 @@
 <?php
-include('../php/conexion.php');
+include('../conexion.php');
 session_start();
 
 if (!isset($_SESSION['user_id']) || $_SESSION['rol'] !== 'admin') {
@@ -23,10 +23,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
         }
     }
 
+    // Eliminar las relaciones en la tabla cartelera_generos
+    $query = "DELETE FROM cartelera_generos WHERE id_cartelera = ?";
+    $stmt = $conexion->prepare($query);
+    $stmt->execute([$id]);
+
+    // Eliminar las relaciones en la tabla likes
+    $query = "DELETE FROM likes WHERE id_carteleras = ?";
+    $stmt = $conexion->prepare($query);
+    $stmt->execute([$id]);
+
     // Eliminar la cartelera de la base de datos
     $query = "DELETE FROM carteleras WHERE id = ?";
     $stmt = $conexion->prepare($query);
-
     if ($stmt->execute([$id])) {
         echo "Cartelera eliminada";
     } else {
