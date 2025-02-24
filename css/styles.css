@@ -58,6 +58,7 @@ nav ul li a:hover {
 .slider-container {
     width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
     overflow: hidden;
+    align-items: center;
 }
 .slider {
     display: flex;
@@ -68,9 +69,8 @@ nav ul li a:hover {
 }
 
 .slider-item {
-    flex: 0 0 auto;
     text-align: center;
-    width: 300px; /* Reducido el tamaño */
+    width: 20%; /* Reducido el tamaño */
 }
 
 .slider-item img {
@@ -145,6 +145,13 @@ nav ul li a:hover {
     text-align: center;
     margin: 0;
     font-weight: bold;
+}
+
+.likes {
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffcaca; 
+    margin-top: 10px;
 }
 
 .like-button {
