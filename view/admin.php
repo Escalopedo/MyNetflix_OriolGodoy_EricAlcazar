@@ -74,9 +74,9 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
     </header>
     <div class="link-tipo">
         <ul>
-            <li><a href="#" class="nav-link" data-seccion="usuarios">Usuarios</a></li>
-            <li><a href="#" class="nav-link" data-seccion="generos">Géneros</a></li>
-            <li><a href="#" class="nav-link" data-seccion="carteleras">Carteleras</a></li>
+            <li><a href="#" class="nav-link" data-seccion="usuarios">USUARIOS</a></li>
+            <li><a href="#" class="nav-link" data-seccion="generos">GÉNEROS</a></li>
+            <li><a href="#" class="nav-link" data-seccion="carteleras">CARTELERAS</a></li>
         </ul>
                 </div>
 
