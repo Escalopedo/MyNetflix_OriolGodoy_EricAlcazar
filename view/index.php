@@ -52,27 +52,28 @@ $peliculas = $resultPeliculas->fetchAll(PDO::FETCH_ASSOC);
             <h2>TOP 5 PELÍCULAS</h2>
             <div class="slider-container">
                 <div class="slider">
-                    <?php
-                        $queryTop5 = "SELECT c.id, c.titulo, c.descripcion, c.img, d.nombre AS director, COUNT(l.id_carteleras) AS likes
-                                    FROM carteleras c
-                                    LEFT JOIN likes l ON c.id = l.id_carteleras
-                                    INNER JOIN directores d ON c.id_director = d.id
-                                    GROUP BY c.id
-                                    ORDER BY likes DESC
-                                    LIMIT 5";
-                        $resultTop5 = $conexion->query($queryTop5);
-                        while ($row = $resultTop5->fetch(PDO::FETCH_ASSOC)) {
-                            echo "<div class='slider-item'>";
-                            echo "<a href='detalles.php?id={$row['id']}'><img src='../img/{$row['img']}' alt='{$row['titulo']}'></a>";
-                            echo "<div class='info'>
-                                    <h3>{$row['titulo']}</h3>
-                                    <p>{$row['descripcion']}</p>
-                                    <span>Director: {$row['director']}</span>
-                                </div>";
-                            echo "</div>";
-                        }
-                    ?>
-                </div>
+                <?php
+                    $queryTop5 = "SELECT c.id, c.titulo, c.descripcion, c.img, d.nombre AS director, COUNT(l.id_carteleras) AS likes
+                                FROM carteleras c
+                                LEFT JOIN likes l ON c.id = l.id_carteleras
+                                INNER JOIN directores d ON c.id_director = d.id
+                                GROUP BY c.id
+                                ORDER BY likes DESC
+                                LIMIT 5";
+                    $resultTop5 = $conexion->query($queryTop5);
+                    while ($row = $resultTop5->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<div class='slider-item'>";
+                        echo "<a href='detalles.php?id={$row['id']}'><img src='../img/{$row['img']}' alt='{$row['titulo']}'></a>";
+                        echo "<div class='info'>
+                                <h3>{$row['titulo']}</h3>
+                                <p>{$row['descripcion']}</p>
+                                <span>Director: {$row['director']}</span>
+                                <p class='likes'>Likes: {$row['likes']}</p> <!-- Aquí agregamos la cantidad de likes -->
+                            </div>";
+                        echo "</div>";
+                    }
+                ?>
+
             </div>
         </section>
     
