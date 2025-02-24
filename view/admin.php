@@ -55,19 +55,18 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
         <ul>
             <?php if ($loggedIn): ?>
                 <li><a href="index.php">Inicio</a></li>
-                <li><a href="../php/logout.php">Cerrar sesión</a></li>
-            <?php endif; ?>
+                    <li><a href="../php/logout.php">Cerrar sesión</a></li>
+                <?php endif; ?>
+            </ul>
+        </nav>
+    </header>
+    <div class="link-tipo">
+        <ul>
+            <li><a href="#" class="nav-link" data-seccion="usuarios">USUARIOS</a></li>
+            <li><a href="#" class="nav-link" data-seccion="generos">GÉNEROS</a></li>
+            <li><a href="#" class="nav-link" data-seccion="carteleras">CARTELERAS</a></li>
         </ul>
-    </nav>
-</header>
-
-<div class="link-tipo">
-    <ul>
-        <li><a href="#" class="nav-link" data-seccion="usuarios">Usuarios</a></li>
-        <li><a href="#" class="nav-link" data-seccion="generos">Géneros</a></li>
-        <li><a href="#" class="nav-link" data-seccion="carteleras">Carteleras</a></li>
-    </ul>
-</div>
+                </div>
 
 <h1>Administración de Contenidos</h1>
 
