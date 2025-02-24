@@ -47,54 +47,57 @@ $peliculas = $resultPeliculas->fetchAll(PDO::FETCH_ASSOC);
         </nav>
     </header>
     
-    <!-- Top 5 Películas -->
-    <section id="top5">
-        <h2>Top 5 Películas</h2>
-        <div class="slider-container">
-            <div class="slider">
-                <?php
-                    $queryTop5 = "SELECT c.id, c.titulo, c.img, COUNT(l.id_carteleras) AS likes
-                                  FROM carteleras c
-                                  LEFT JOIN likes l ON c.id = l.id_carteleras
-                                  GROUP BY c.id
-                                  ORDER BY likes DESC
-                                  LIMIT 5";
-                    $resultTop5 = $conexion->query($queryTop5);
-                    while ($row = $resultTop5->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<div class='slider-item'>";
-                        echo "<a href='detalles.php?id={$row['id']}'>
-                                <img src='../img/{$row['img']}' alt='{$row['titulo']}'>
-                              </a>";
-                        echo "</div>";
-                    }
-                ?>
+        <!-- Top 5 Películas -->
+        <section id="top5">
+            <h2>TOP 5 PELÍCULAS</h2>
+            <div class="slider-container">
+                <div class="slider">
+                    <?php
+                        $queryTop5 = "SELECT c.id, c.titulo, c.descripcion, c.img, d.nombre AS director, COUNT(l.id_carteleras) AS likes
+                                    FROM carteleras c
+                                    LEFT JOIN likes l ON c.id = l.id_carteleras
+                                    INNER JOIN directores d ON c.id_director = d.id
+                                    GROUP BY c.id
+                                    ORDER BY likes DESC
+                                    LIMIT 5";
+                        $resultTop5 = $conexion->query($queryTop5);
+                        while ($row = $resultTop5->fetch(PDO::FETCH_ASSOC)) {
+                            echo "<div class='slider-item'>";
+                            echo "<a href='detalles.php?id={$row['id']}'><img src='../img/{$row['img']}' alt='{$row['titulo']}'></a>";
+                            echo "<div class='info'>
+                                    <h3>{$row['titulo']}</h3>
+                                    <p>{$row['descripcion']}</p>
+                                    <span>Director: {$row['director']}</span>
+                                </div>";
+                            echo "</div>";
+                        }
+                    ?>
+                </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Filtros de búsqueda -->
-    <section id="filtros">
-        <form id="filterForm">
-            <div class="filters">
-                <input type="text" id="searchTitle" name="searchTitle" placeholder="Buscar por título...">
-                <select id="searchGenre" name="searchGenre">
-                    <option value="">Seleccionar género</option>
-                    <?php foreach ($generos as $genero): ?>
-                        <option value="<?php echo $genero['id']; ?>"><?php echo $genero['nombre']; ?></option>
-                    <?php endforeach; ?>
-                </select>
-                <?php if ($loggedIn): ?>
-                    <label>
-                        <input type="checkbox" id="likedOnly" name="likedOnly"> Mostrar solo las que me gustan
-                    </label>
-                <?php endif; ?>
-            </div>
-        </form>
-    </section>
+        </section>
     
     <!-- Catálogo de Películas -->
     <section id="catalogo">
-        <h2>Catálogo de Películas</h2>
+        <h2>CATÁLOGO DE PELICULAS</h2>
+                            <!-- Filtros de búsqueda -->
+                    <section id="filtros">
+                        <form id="filterForm">
+                            <div class="filters">
+                                <input type="text" id="searchTitle" name="searchTitle" placeholder="Buscar por título...">
+                                <select id="searchGenre" name="searchGenre">
+                                    <option value="">Seleccionar género</option>
+                                    <?php foreach ($generos as $genero): ?>
+                                        <option value="<?php echo $genero['id']; ?>"><?php echo $genero['nombre']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <?php if ($loggedIn): ?>
+                                    <label>
+                                        <input type="checkbox" id="likedOnly" name="likedOnly"> Mostrar solo las que me gustan
+                                    </label>
+                                <?php endif; ?>
+                            </div>
+                        </form>
+                    </section>
         <div class="grid-peliculas">
             <?php foreach ($peliculas as $pelicula): ?>
                 <div class="pelicula">
@@ -109,7 +112,7 @@ $peliculas = $resultPeliculas->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </div>
     </section>
-
+    <script src="../js/slider.js"></script>
     <script src="../js/filtrosAjax.js"></script>
 </body>
 </html>

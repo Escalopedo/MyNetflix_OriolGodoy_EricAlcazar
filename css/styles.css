@@ -3,7 +3,7 @@
 body {
     background-color: #141414;
     color: white;
-    font-family: "Funnel Sans", serif;
+    font-family: "Funnel Sans", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
     margin: 0;
@@ -15,11 +15,8 @@ header {
     padding: 10px 20px;
     display: flex;
     justify-content: center;
-    /* Centra todos los elementos en el eje horizontal */
     align-items: center;
-    /* Alinea verticalmente */
     gap: 20px;
-    /* Espacio entre el logo y la navegación */
 }
 
 .logo img {
@@ -33,7 +30,6 @@ nav ul {
     margin: 0;
     display: flex;
     gap: 50px;
-    /* Espacio entre los elementos */
 }
 
 nav ul li {
@@ -43,14 +39,13 @@ nav ul li {
 nav ul li a {
     color: red;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 18px;
     transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
     color: white;
 }
-
 
 /* Top 5 Películas */
 
@@ -60,124 +55,83 @@ nav ul li a:hover {
     text-align: center;
 }
 
-
-/* Contenedor principal del slider */
-
 .slider-container {
-    position: relative;
-    width: 80%;
-    margin: 0 auto;
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
     overflow: hidden;
 }
-
-
-/* El slider como tal */
-
 .slider {
     display: flex;
-    animation: slide 20s infinite;
+    gap: 10px;
+    transition: transform 0.5s ease-in-out;
+    width: 100%; /* Evitar el desbordamiento horizontal */
+    flex-shrink: 0; /* Evita que los elementos se encojan, para mantener su tamaño */
 }
-
-
-/* Cada slide ocupa el 100% del ancho */
 
 .slider-item {
-    min-width: 100%;
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+    flex: 0 0 auto;
+    text-align: center;
+    width: 300px; /* Reducido el tamaño */
 }
-
-
-/* Ajuste de imagen dentro del slider */
 
 .slider-item img {
     width: 100%;
-    height: 100%;
-    object-fit: contain;
-    /* Asegura que la imagen se vea completamente sin cortar */
+    height: auto;
+    object-fit: contain; /* Evita que se corte la imagen */
     border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-
-/* Título debajo de la imagen */
-
-.slider-item .titulo {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    /* Fondo oscuro para el título */
+.info {
+    margin-top: 20px; /* Más espacio entre imagen y texto */
+    font-family: 'Funnel Sans', sans-serif;
     color: white;
     text-align: center;
-    font-size: 18px;
+}
+
+.info h3 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.info p {
+    font-size: 16px;
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
+.info span {
+    display: block;
+    font-size: 14px;
     font-weight: bold;
-    padding: 5px 0;
+    color: #ff4747;
+    margin-top: 10px;
 }
 
-
-/* Animación para deslizar las imágenes */
-
-@keyframes slide {
-    0% {
-        transform: translateX(0%);
-    }
-    25% {
-        transform: translateX(-100%);
-    }
-    50% {
-        transform: translateX(-200%);
-    }
-    75% {
-        transform: translateX(-300%);
-    }
-    100% {
-        transform: translateX(-400%);
-    }
-}
-
-
-/* Estilos para el catálogo */
+/* Catálogo de Películas */
 
 .grid-peliculas {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    /* Asegura que haya 5 columnas por fila */
     gap: 20px;
     padding: 20px;
 }
 
-
-/* Estilo de las imágenes dentro del catálogo */
-
 .grid-peliculas div {
     position: relative;
     width: 100%;
-    /* Esto hace que ocupe el 100% de su espacio asignado */
     height: 225px;
-    /* Altura para todas las imágenes */
     background-size: cover;
     background-position: center;
     border-radius: 10px;
     overflow: hidden;
 }
 
-
-/* Ajuste de la imagen dentro del div */
-
 .grid-peliculas div img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    /* Asegura que la imagen se vea completamente sin cortarse */
     border-radius: 10px;
 }
-
-
-/* Título con fondo oscuro y espacio debajo de la imagen */
 
 .grid-peliculas div p {
     position: absolute;
@@ -185,7 +139,6 @@ nav ul li a:hover {
     left: 0;
     right: 0;
     background-color: rgba(0, 0, 0, 0.7);
-    /* Fondo oscuro para el título */
     color: white;
     font-size: 16px;
     padding: 10px;
@@ -209,16 +162,13 @@ nav ul li a:hover {
     background-color: #b20710;
 }
 
-
-/* Estilos para el formulario de búsqueda (alinear horizontalmente y centrarlo) */
+/* Filtros de búsqueda */
 
 #filtros {
     display: flex;
     justify-content: center;
-    /* Centra el formulario */
     align-items: center;
     width: 100%;
-    /* Ocupa todo el ancho */
     margin: 20px 0;
 }
 
@@ -227,9 +177,7 @@ nav ul li a:hover {
     justify-content: center;
     align-items: center;
     gap: 20px;
-    /* Espacio entre los elementos */
     flex-wrap: wrap;
-    /* Para que se ajuste si la pantalla es pequeña */
     margin: 0;
 }
 
@@ -254,24 +202,60 @@ nav ul li a:hover {
     margin-right: 5px;
 }
 
-
-/* Para dispositivos móviles o pantallas pequeñas */
+/* Responsividad */
 
 @media (max-width: 768px) {
     #filtros form {
         flex-direction: column;
-        /* Apilar los elementos en pantallas más pequeñas */
         align-items: flex-start;
     }
     .grid-peliculas {
         grid-template-columns: repeat(2, 1fr);
-        /* Solo 2 columnas en pantallas pequeñas */
     }
     nav ul li a {
-        font-size: 15px;
+        font-size: 16px;
     }
     nav ul {
         gap: 20px;
-        /* Espacio entre los elementos */
     }
+    .slider-item {
+        width: 200px;
+    }
+    .info h3 {
+        font-size: 18px;
+    }
+    .info p {
+        font-size: 14px;
+    }
+
+    /* Ajustar el tamaño del slider */
+    .slider-container {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .slider {
+        display: flex;
+        gap: 10px;
+        transition: transform 0.5s ease-in-out;
+        width: 100%; /* Asegura que el slider ocupe el 100% del contenedor */
+    }
+
+    /* Ajustar el tamaño de las imágenes del slider */
+    .slider-item {
+        flex: 0 0 80%;  /* Cada imagen ocupa el 80% del ancho */
+        max-width: 100%;  /* No se desborda fuera de la pantalla */
+    }
+
+    .slider-item img {
+        width: 100%; /* Asegura que la imagen no se desborde */
+        height: auto;
+        object-fit: contain; /* Asegura que la imagen se ajuste sin recortarse */
+    }
+
+    /* Reducir el espacio entre las imágenes */
+    .slider-item img {
+        margin: 0 auto;
+    }
+
 }
