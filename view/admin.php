@@ -3,26 +3,30 @@ session_start();
 include('../php/conexion.php');
 
 $userRole = $_SESSION['rol'] ?? ''; 
+
+// Comprobar si el usuario está logueado
 $loggedIn = isset($_SESSION['user_id']);
 
-// Verificación de administrador
-if (!$loggedIn || $_SESSION['rol'] !== 'admin') {
+// Verificar si el usuario es administrador
+if (!isset($_SESSION['user_id']) || $_SESSION['rol'] !== 'admin') {
     header('Location: ../view/index.php');
     exit();
 }
 
-// Obtener usuarios por estado
-$usuariosActivos = $conexion->query("SELECT * FROM usuarios WHERE estado = 'activo'")->fetchAll(PDO::FETCH_ASSOC);
-$usuariosInactivos = $conexion->query("SELECT * FROM usuarios WHERE estado = 'inactivo'")->fetchAll(PDO::FETCH_ASSOC);
-$usuariosPendientes = $conexion->query("SELECT * FROM usuarios WHERE estado = 'pendiente'")->fetchAll(PDO::FETCH_ASSOC);
+// Obtener usuarios según su estado
+$query = "SELECT * FROM usuarios WHERE estado = 'activo'";
+$usuariosActivos = $conexion->query($query)->fetchAll(PDO::FETCH_ASSOC);
 
-// Obtener géneros
-$generos = $conexion->query("SELECT * FROM generos")->fetchAll(PDO::FETCH_ASSOC);
+$query = "SELECT * FROM usuarios WHERE estado = 'inactivo'";
+$usuariosInactivos = $conexion->query($query)->fetchAll(PDO::FETCH_ASSOC);
 
-// Obtener directores
-$directores = $conexion->query("SELECT * FROM directores")->fetchAll(PDO::FETCH_ASSOC);
+$query = "SELECT * FROM usuarios WHERE estado = 'pendiente'";
+$usuariosPendientes = $conexion->query($query)->fetchAll(PDO::FETCH_ASSOC);
 
-// Obtener carteleras con directores y géneros
+// Géneros (para crear y gestionar)
+$queryGeneros = "SELECT * FROM generos";
+$generos = $conexion->query($queryGeneros)->fetchAll(PDO::FETCH_ASSOC);
+
 $queryCarteleras = "
     SELECT c.*, d.nombre AS director, GROUP_CONCAT(g.nombre SEPARATOR ', ') AS generos
     FROM carteleras c
@@ -31,7 +35,9 @@ $queryCarteleras = "
     LEFT JOIN generos g ON cg.id_genero = g.id
     GROUP BY c.id, d.nombre
 ";
+
 $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -42,18 +48,24 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
     <title>Panel de Administración</title>
     <link rel="stylesheet" href="../css/admin.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@300;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+<!-- SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 </head>
 <body>
 
-<header>
-    <div class="logo">
-        <img src="../img/OjoNetflix.png" alt="Logo">
-    </div>
-    <nav>
-        <ul>
-            <?php if ($loggedIn): ?>
+    <!-- Barra de navegación -->
+    <header>
+        <div class="logo">
+            <img src="../img/OjoNetflix.png" alt="Logo de la Plataforma">
+        </div>
+        <nav>
+            <ul>
+                <?php if ($loggedIn): ?>
                 <li><a href="index.php">Inicio</a></li>
                     <li><a href="../php/logout.php">Cerrar sesión</a></li>
                 <?php endif; ?>
@@ -68,73 +80,137 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
         </ul>
                 </div>
 
-<h1>Administración de Contenidos</h1>
+    <h1>Administración de Contenidos</h1>
 
-<!-- Sección de Usuarios -->
-<div id="usuarios" class="seccion">
-    <h2>Usuarios Activos</h2>
-    <table id="tablaActivos">
-        <tr><th>ID</th><th>Nombre</th><th>Correo</th><th>Rol</th><th>Acciones</th></tr>
-        <?php foreach ($usuariosActivos as $usuario): ?>
-            <tr id="usuario_<?= $usuario['id'] ?>">
-                <td><?= htmlspecialchars($usuario['id']) ?></td>
-                <td><?= htmlspecialchars($usuario['nombre']) ?></td>
-                <td><?= htmlspecialchars($usuario['correo']) ?></td>
-                <td><?= htmlspecialchars($usuario['rol']) ?></td>
-                <td><button class="btn-tabla btn-warning gestionar-usuario" data-id="<?= $usuario['id'] ?>" data-accion="desactivar">Desactivar</button></td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-</div>
-
-<!-- Sección de Géneros -->
-<div id="generos" class="seccion" style="display:none;">
-    <h2>Géneros</h2>
-    <table>
-        <tr><th>ID</th><th>Nombre</th><th>Acciones</th></tr>
-        <?php foreach ($generos as $genero): ?>
+    <!-- Sección de Usuarios -->
+    <div id="usuarios" class="seccion">
+        <h2>Usuarios Activos</h2>
+        <table id="tablaActivos">
             <tr>
-                <td><?= htmlspecialchars($genero['id']) ?></td>
-                <td><?= htmlspecialchars($genero['nombre']) ?></td>
-                <td>
-                    <button class="btn-tabla btn-primary editar-genero" data-id="<?= $genero['id'] ?>">Editar</button>
-                    <button class="btn-tabla btn-danger eliminar-genero" data-id="<?= $genero['id'] ?>">Eliminar</button>
-                </td>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Acciones</th>
             </tr>
-        <?php endforeach; ?>
-    </table>
-    <button class="btn-tabla btn-success crear-genero">Crear Género</button>
-</div>
+            <?php foreach ($usuariosActivos as $usuario) : ?>
+                <tr id="usuario_<?= $usuario['id'] ?>">
+                    <td><?= $usuario['id'] ?></td>
+                    <td><?= $usuario['nombre'] ?></td>
+                    <td><?= $usuario['correo'] ?></td>
+                    <td><?= $usuario['rol'] ?></td>
+                    <td>
+                        <button class=" btn-tabla gestionar-usuario btn-warning" data-id="<?= $usuario['id'] ?>" data-accion="desactivar">Desactivar</button>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
 
-<!-- Sección de Carteleras -->
-<div id="carteleras" class="seccion" style="display:none;">
-    <h2>Carteleras</h2>
-    <table>
-        <tr><th>ID</th><th>Título</th><th>Descripción</th><th>Géneros</th><th>Director</th><th>Imagen</th><th>Acciones</th></tr>
-        <?php foreach ($carteleras as $cartelera): ?>
+        <h2>Usuarios Inactivos</h2>
+        <table id="tablaInactivos">
             <tr>
-                <td><?= htmlspecialchars($cartelera['id']) ?></td>
-                <td><?= htmlspecialchars($cartelera['titulo']) ?></td>
-                <td><?= htmlspecialchars($cartelera['descripcion']) ?></td>
-                <td><?= htmlspecialchars($cartelera['generos']) ?></td>
-                <td><?= htmlspecialchars($cartelera['director']) ?></td>   
-                <td>
-                    <?php if (!empty($cartelera['img'])): ?>
-                        <img src="../img/<?= htmlspecialchars($cartelera['img']) ?>" alt="Imagen" width="100">
-                    <?php else: ?>
-                        <span>No hay imagen</span>
-                    <?php endif; ?>
-                </td>
-                <td>
-                    <button class="btn-tabla btn-primary editar-cartelera" data-id="<?= $cartelera['id'] ?>">Editar</button>
-                    <button class="btn-tabla btn-danger eliminar-cartelera" data-id="<?= $cartelera['id'] ?>">Eliminar</button>
-                </td>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Acciones</th>
             </tr>
-        <?php endforeach; ?>
-    </table>
-    <button class="btn-tabla btn-success crear-cartelera">Crear Cartelera</button>
-</div>
-<!-- Modal para editar cartelera -->
+            <?php foreach ($usuariosInactivos as $usuario) : ?>
+                <tr id="usuario_<?= $usuario['id'] ?>">
+                    <td><?= $usuario['id'] ?></td>
+                    <td><?= $usuario['nombre'] ?></td>
+                    <td><?= $usuario['correo'] ?></td>
+                    <td><?= $usuario['rol'] ?></td>
+                    <td>
+                        <button class="btn-tabla gestionar-usuario btn-success" data-id="<?= $usuario['id'] ?>" data-accion="activar">Activar</button>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+
+        <h2>Usuarios Pendientes</h2>
+        <table id="tablaPendientes">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+            <?php foreach ($usuariosPendientes as $usuario) : ?>
+                <tr id="usuario_<?= $usuario['id'] ?>">
+                    <td><?= $usuario['id'] ?></td>
+                    <td><?= $usuario['nombre'] ?></td>
+                    <td><?= $usuario['correo'] ?></td>
+                    <td><?= $usuario['rol'] ?></td>
+                    <td>
+                        <button class="btn-tabla gestionar-usuario btn-primary" data-id="<?= $usuario['id'] ?>" data-accion="aprobar">Aprobar</button>
+                        <button class="btn-tabla gestionar-usuario btn-danger" data-id="<?= $usuario['id'] ?>" data-accion="rechazar">Rechazar</button>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+
+    <!-- Sección de Géneros -->
+    <div id="generos" class="seccion" style="display:none;">
+        <h2>Géneros</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
+            </tr>
+            <?php foreach ($generos as $genero) : ?>
+                <tr>
+                    <td><?= $genero['id'] ?></td>
+                    <td><?= $genero['nombre'] ?></td>
+                    <td>
+                        <button class="btn-tabla editar-genero btn-primary" data-id="<?= $genero['id'] ?>">Editar</button>
+                        <button class="btn-tabla eliminar-genero btn-danger" data-id="<?= $genero['id'] ?>">Eliminar</button>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+        <button class="btn-tabla crear-genero btn-success">Crear Género</button>
+    </div>
+
+    <!-- Sección de Carteleras -->
+    <div id="carteleras" class="seccion" style="display:none;">
+        <h2>Carteleras</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Géneros</th>
+                <th>Director</th>
+                <th>Imagen</th>
+                <th>Acciones</th>
+            </tr>
+            <?php foreach ($carteleras as $cartelera) : ?>
+                <tr>
+                    <td><?= $cartelera['id'] ?></td>
+                    <td><?= $cartelera['titulo'] ?></td>
+                    <td><?= $cartelera['descripcion'] ?></td>
+                    <td><?= $cartelera['generos'] ?></td>
+                    <td><?= $cartelera['director'] ?></td>   
+                    <td>
+                        <?php if (!empty($cartelera['img'])): ?>
+                            <img src="../img/<?= $cartelera['img'] ?>" alt="Imagen de la cartelera" width="100" height="100">
+                        <?php else: ?>
+                            <span>No hay imagen</span>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <button class="btn-tabla editar-cartelera btn-primary" data-id="<?= $cartelera['id'] ?>">Editar</button>
+                        <button class="btn-tabla eliminar-cartelera btn-danger" data-id="<?= $cartelera['id'] ?>">Eliminar</button>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+        <button class="btn-tabla crear-cartelera btn-success">Crear Cartelera</button>
+        <!-- Modal de Edición de Cartelera -->
 <div id="modalEditarCartelera" class="modal">
     <div class="modal-contenido">
         <span class="cerrar">&times;</span>
@@ -148,58 +224,19 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
             <label for="editDescripcion">Descripción:</label>
             <textarea id="editDescripcion" name="descripcion" required></textarea>
 
-            <label for="editDirector">Director:</label>
-            <select id="editDirector" name="director" required>
-                <option value="">Selecciona un director</option>
-                <?php foreach ($directores as $director): ?>
-                    <option value="<?= $director['id'] ?>"> <?= $director['nombre'] ?></option>
-                <?php endforeach; ?>
-            </select>
-
-            <label for="editGeneros">Géneros:</label>
-            <select id="editGeneros" name="generos[]" multiple size="1" required>
-                <?php foreach ($generos as $genero): ?>
-                    <option value="<?= $genero['id'] ?>"> <?= $genero['nombre'] ?></option>
-                <?php endforeach; ?>
-            </select>
-
             <label for="editImg">Imagen:</label>
             <input type="file" id="editImg" name="img">
-            <img id="prevImg" src="" alt="Imagen actual" width="100">
+
+            <img id="prevImg" src="" alt="Imagen actual" width="100" height="100">
+
             <button type="submit" class="btn-tabla btn-success">Guardar Cambios</button>
         </form>
     </div>
 </div>
-<!-- Modal para crear cartelera -->
-<div id="modalCrearCartelera" class="modal">
-    <div class="modal-contenido">
-        <span class="cerrar">&times;</span>
-        <h2>Crear Cartelera</h2>
-        <form id="formCrearCartelera" enctype="multipart/form-data">
-            <label for="crearTitulo">Título:</label>
-            <input type="text" id="crearTitulo" name="titulo" required>
-            <label for="crearDescripcion">Descripción:</label>
-            <textarea id="crearDescripcion" name="descripcion" required></textarea>
-            <label for="crearDirector">Director:</label>
-            <select id="crearDirector" name="director" required>
-                <option value="">Selecciona un director</option>
-                <?php foreach ($directores as $director): ?>
-                    <option value="<?= $director['id'] ?>"><?= htmlspecialchars($director['nombre']) ?></option>
-                <?php endforeach; ?>
-            </select>
-            <label for="crearGeneros">Géneros:</label>
-            <select id="crearGeneros" name="generos[]" multiple size="5" required>
-                <?php foreach ($generos as $genero): ?>
-                    <option value="<?= $genero['id'] ?>"><?= htmlspecialchars($genero['nombre']) ?></option>
-                <?php endforeach; ?>
-            </select>
-            <label for="crearImg">Imagen:</label>
-            <input type="file" id="crearImg" name="img">
-            <button type="submit" class="btn-tabla btn-success">Crear Cartelera</button>
-        </form>
+
     </div>
-</div>
-<script src="../js/ajaxUsuarios.js"></script>
-<script src="../js/adminAjax.js"></script>
+
+    <script src="../js/ajaxUsuarios.js"></script>
+    <script src="../js/adminAjax.js"></script>
 </body>
 </html>
