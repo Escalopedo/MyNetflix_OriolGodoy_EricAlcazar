@@ -228,34 +228,19 @@ nav ul li a:hover {
         font-size: 14px;
     }
 
-    /* Ajustar el tamaño del slider */
-    .slider-container {
-        width: 100%;
-        overflow: hidden;
-    }
-
     .slider {
-        display: flex;
-        gap: 10px;
-        transition: transform 0.5s ease-in-out;
-        width: 100%; /* Asegura que el slider ocupe el 100% del contenedor */
+        flex-direction: column; /* Los items se apilan verticalmente */
+        align-items: center; /* Centrar los items */
     }
 
-    /* Ajustar el tamaño de las imágenes del slider */
     .slider-item {
-        flex: 0 0 80%;  /* Cada imagen ocupa el 80% del ancho */
-        max-width: 100%;  /* No se desborda fuera de la pantalla */
+        width: 100%; /* Cada imagen ocupará el 100% del ancho */
+        margin-bottom: 20px; /* Separar cada imagen para que no se peguen */
     }
 
     .slider-item img {
-        width: 100%; /* Asegura que la imagen no se desborde */
+        width: 100%;  /* Asegura que las imágenes se ajusten al 100% del contenedor */
         height: auto;
-        object-fit: contain; /* Asegura que la imagen se ajuste sin recortarse */
+        object-fit: contain;
     }
-
-    /* Reducir el espacio entre las imágenes */
-    .slider-item img {
-        margin: 0 auto;
-    }
-
 }
