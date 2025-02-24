@@ -18,7 +18,7 @@ $(document).ready(function() {
 
         // Obtener los datos actuales de la cartelera
         $.ajax({
-            url: "../php/editarCartelera.php",
+            url: "../php/procesosAdmin/editarCartelera.php",
             type: "POST",
             data: { accion: "get", id: carteleraId },
             dataType: "json",
@@ -26,7 +26,17 @@ $(document).ready(function() {
                 $("#editCarteleraId").val(response.id);
                 $("#editTitulo").val(response.titulo);
                 $("#editDescripcion").val(response.descripcion);
+                $("#editDirector").val(response.id_director); // Director actual
 
+                // Limpiar y cargar géneros actuales
+                $("#editGeneros").empty();
+                response.generos.forEach(function(genero) {
+                    $("#editGeneros").append(
+                        `<option value="${genero.id}" selected>${genero.nombre}</option>`
+                    );
+                });
+
+                // Mostrar imagen actual
                 if (response.img) {
                     $("#prevImg").attr("src", "../img/" + response.img);
                 } else {
@@ -34,6 +44,14 @@ $(document).ready(function() {
                 }
 
                 $("#modalEditarCartelera").fadeIn();
+            },
+            error: function() {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'No se pudo obtener la información.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
             }
         });
     });
@@ -52,25 +70,22 @@ $(document).ready(function() {
         formData.append("id", $("#editCarteleraId").val());
 
         $.ajax({
-            url: "../php/editarCartelera.php",
+            url: "../php/procesosAdmin/editarCartelera.php",
             type: "POST",
             data: formData,
             processData: false,
             contentType: false,
             success: function(response) {
-                // Mostrar un SweetAlert en vez de un alert
                 Swal.fire({
                     title: '¡Éxito!',
                     text: 'Los cambios fueron guardados correctamente.',
                     icon: 'success',
                     confirmButtonText: 'Aceptar'
                 }).then(function() {
-                    // Recargar la página después de hacer clic en "Aceptar"
                     location.reload();
                 });
             },
             error: function() {
-                // Mostrar un SweetAlert en caso de error
                 Swal.fire({
                     title: 'Error',
                     text: 'Hubo un problema al guardar los cambios. Intenta nuevamente.',
@@ -81,6 +96,7 @@ $(document).ready(function() {
         });
     });
 });
+
 
 // Eliminar Cartelera
 
@@ -101,7 +117,7 @@ $(document).ready(function() {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: "../php/eliminar_cartelera.php",
+                    url: "../php/procesosAdmin/eliminarCartelera.php",
                     type: "POST",
                     data: { id: carteleraId },
                     success: function(response) {
