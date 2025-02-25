@@ -211,28 +211,40 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
         </table>
         <button class="btn-tabla crear-cartelera btn-success">Crear Cartelera</button>
         <!-- Modal de Edición de Cartelera -->
-<div id="modalEditarCartelera" class="modal">
-    <div class="modal-contenido">
-        <span class="cerrar">&times;</span>
-        <h2>Editar Cartelera</h2>
-        <form id="formEditarCartelera" enctype="multipart/form-data">
-            <input type="hidden" id="editCarteleraId">
-            
-            <label for="editTitulo">Título:</label>
-            <input type="text" id="editTitulo" name="titulo" required>
+    <div id="modalEditarCartelera" class="modal">
+        <div class="modal-contenido">
+            <div class="modal-header">
+            <span class="cerrar">&times;</span>
+            <h2>Editar Cartelera</h2>
+            </div>
+            <form id="formEditarCartelera" enctype="multipart/form-data">
+                <input type="hidden" id="editCarteleraId">
+                
+                <label for="editTitulo">Título:</label>
+                <input type="text" id="editTitulo" name="titulo" required>
 
-            <label for="editDescripcion">Descripción:</label>
-            <textarea id="editDescripcion" name="descripcion" required></textarea>
+                <label for="editDescripcion">Descripción:</label>
+                <textarea id="editDescripcion" name="descripcion" required></textarea>
 
-            <label for="editImg">Imagen:</label>
-            <input type="file" id="editImg" name="img">
+                <label for="editDirector">Director:</label>
+                <select id="editDirector" name="director" required>
+                    <!-- Opciones de directores cargadas dinámicamente -->
+                </select>
 
-            <img id="prevImg" src="" alt="Imagen actual" width="100" height="100">
+                <label for="editGeneros">Géneros:</label>
+                <select id="editGeneros" name="generos[]" multiple required>
+                    <!-- Opciones de géneros cargadas dinámicamente -->
+                </select>
 
-            <button type="submit" class="btn-tabla btn-success">Guardar Cambios</button>
-        </form>
+                <label for="editImg">Imagen:</label>
+                <input type="file" id="editImg" name="img">
+                
+                <img id="prevImg" src="" alt="Imagen actual" width="100" height="100">
+
+                <button type="submit" class="btn-tabla btn-success">Guardar Cambios</button>
+            </form>
+        </div>
     </div>
-</div>
 
     </div>
 
