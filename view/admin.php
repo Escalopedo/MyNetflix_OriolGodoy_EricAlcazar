@@ -23,6 +23,10 @@ $usuariosInactivos = $conexion->query($query)->fetchAll(PDO::FETCH_ASSOC);
 $query = "SELECT * FROM usuarios WHERE estado = 'pendiente'";
 $usuariosPendientes = $conexion->query($query)->fetchAll(PDO::FETCH_ASSOC);
 
+// Obtener los directores de la base de datos
+$queryDirectores = "SELECT * FROM directores";
+$directores = $conexion->query($queryDirectores)->fetchAll(PDO::FETCH_ASSOC);
+
 // Géneros (para crear y gestionar)
 $queryGeneros = "SELECT * FROM generos";
 $generos = $conexion->query($queryGeneros)->fetchAll(PDO::FETCH_ASSOC);
@@ -210,41 +214,47 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </table>
         <button class="btn-tabla crear-cartelera btn-success">Crear Cartelera</button>
+        
         <!-- Modal de Edición de Cartelera -->
-    <div id="modalEditarCartelera" class="modal">
-        <div class="modal-contenido">
-            <div class="modal-header">
-            <span class="cerrar">&times;</span>
-            <h2>Editar Cartelera</h2>
-            </div>
-            <form id="formEditarCartelera" enctype="multipart/form-data">
-                <input type="hidden" id="editCarteleraId">
-                
-                <label for="editTitulo">Título:</label>
-                <input type="text" id="editTitulo" name="titulo" required>
-
-                <label for="editDescripcion">Descripción:</label>
-                <textarea id="editDescripcion" name="descripcion" required></textarea>
-
-                <label for="editDirector">Director:</label>
-                <select id="editDirector" name="director" required>
-                    <!-- Opciones de directores cargadas dinámicamente -->
-                </select>
-
-                <label for="editGeneros">Géneros:</label>
-                <select id="editGeneros" name="generos[]" multiple required>
-                    <!-- Opciones de géneros cargadas dinámicamente -->
-                </select>
-
-                <label for="editImg">Imagen:</label>
-                <input type="file" id="editImg" name="img">
-                
-                <img id="prevImg" src="" alt="Imagen actual" width="100" height="100">
-
-                <button type="submit" class="btn-tabla btn-success">Guardar Cambios</button>
-            </form>
+        <div id="modalEditarCartelera" class="modal">
+            <div class="modal-contenido">
+                <div class="modal-header">
+                    <span class="cerrar">&times;</span>
+                    <h2>Editar Cartelera</h2>
+                </div>
+                <form id="formEditarCartelera" enctype="multipart/form-data">
+    <input type="hidden" id="editCarteleraId" name="id">
+    <div>
+        <label for="editTitulo">Título</label>
+        <input type="text" id="editTitulo" name="titulo" required>
+    </div>
+    <div>
+        <label for="editDescripcion">Descripción</label>
+        <textarea id="editDescripcion" name="descripcion" required></textarea>
+    </div>
+    <div>
+        <label for="editDirector">Director</label>
+        <select id="editDirector" name="director" required>
+            <!-- Aquí se agregan los directores desde AJAX -->
+        </select>
+    </div>
+    <div>
+        <label for="editGeneros">Géneros</label>
+        <div id="editGeneros">
+            <!-- Los checkboxes se agregarán aquí dinámicamente con AJAX -->
         </div>
     </div>
+
+    <div>
+        <label for="editImg">Imagen</label>
+        <input type="file" id="editImg" name="img">
+    </div>
+    <img id="prevImg" src="" alt="Imagen previa" style="max-width: 100px; display: none;">
+    <button type="submit">Guardar cambios</button>
+</form>
+            </div>
+        </div>
+
 
     </div>
 
