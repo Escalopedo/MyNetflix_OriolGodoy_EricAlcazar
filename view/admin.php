@@ -178,7 +178,32 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
         </table>
         <button class="btn-tabla crear-genero btn-success">Crear Género</button>
     </div>
+<!-- Modal de Edición de Género -->
+<div id="modalEditarGenero" class="modal">
+    <div class="modal-contenido">
+        <span class="cerrar">&times;</span>
+        <h2>Editar Género</h2>
+        <form id="formEditarGenero">
+            <input type="hidden" id="editGeneroId">
+            <label for="editNombre">Nombre:</label>
+            <input type="text" id="editNombre" name="nombre" required>
+            <button type="submit" class="btn-tabla btn-success">Guardar Cambios</button>
+        </form>
+    </div>
 
+</div>
+    <!-- Modal para crear género -->
+    <div id="modalCrearGenero" class="modal">
+    <div class="modal-contenido">
+        <span class="cerrar">&times;</span>
+        <h2>Crear Género</h2>
+        <form id="formCrearGenero">
+            <label for="crearNombreGenero">Nombre:</label>
+            <input type="text" id="crearNombreGenero" name="nombre" required>
+            <button type="submit" class="btn-tabla btn-success crear-genero">Crear Género</button>
+        </form>
+    </div>
+</div>
     <!-- Sección de Carteleras -->
     <div id="carteleras" class="seccion" style="display:none;">
         <h2>Carteleras</h2>
@@ -260,5 +285,10 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
 
     <script src="../js/ajaxUsuarios.js"></script>
     <script src="../js/adminAjax.js"></script>
+    <script src="../js/crearGenero.js"></script>
+    <script src="../js/editarGenero.js"></script>
+    <script src="../js/eliminarCartelera.js"></script>
+    <script src="../js/eliminarGenero.js"></script>
+
 </body>
 </html>
