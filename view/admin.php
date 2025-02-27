@@ -247,7 +247,7 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
 
     <div>
         <label for="editImg">Imagen</label>
-        <input type="file" id="editImg" name="img">
+        <input type="file" id="img" name="img">
     </div>
     <img id="prevImg" src="" alt="Imagen previa" style="max-width: 100px; display: none;">
     <button type="submit">Guardar cambios</button>
