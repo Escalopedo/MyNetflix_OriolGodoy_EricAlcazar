@@ -243,7 +243,8 @@ tr:hover {
 }
 
 .modal-contenido input,
-.modal-contenido textarea {
+.modal-contenido textarea,
+.modal-contenido select {
     width: 100%;
     padding: 10px;
     background-color: #333;
@@ -264,6 +265,20 @@ tr:hover {
     border-radius: 5px;
     font-weight: bold;
     margin-top: 15px;
+}
+
+/* Para los campos a la derecha */
+.modal-contenido .campo-derecha {
+    display: flex;
+    flex-direction: row-reverse; /* Coloca los campos a la derecha */
+    align-items: flex-start;
+    gap: 20px; /* Espacio entre el label y el input/select */
+}
+
+/* Para los campos que no están alineados a la derecha */
+.modal-contenido .campo-izquierda {
+    display: block;
+    margin-bottom: 10px;
 }
 
 #prevImg {
