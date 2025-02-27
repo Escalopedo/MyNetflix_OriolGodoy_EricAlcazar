@@ -267,6 +267,7 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
     <script src="../js/editarGenero.js"></script>
     <script src="../js/eliminarCartelera.js"></script>
     <script src="../js/eliminarGenero.js"></script>
+    <script src="../js/crearCartelera.js"></script>
 
 </body>
 </html>
