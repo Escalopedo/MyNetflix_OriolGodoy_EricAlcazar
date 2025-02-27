@@ -93,7 +93,9 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
+                <th>Apellido</th>
                 <th>Correo</th>
+                <th>Telefono</th>
                 <th>Rol</th>
                 <th>Acciones</th>
             </tr>
@@ -101,7 +103,9 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
                 <tr id="usuario_<?= $usuario['id'] ?>">
                     <td><?= $usuario['id'] ?></td>
                     <td><?= $usuario['nombre'] ?></td>
+                    <td><?= $usuario['apellido'] ?></td>
                     <td><?= $usuario['correo'] ?></td>
+                    <td><?= $usuario['telefono'] ?></td>
                     <td><?= $usuario['rol'] ?></td>
                     <td>
                         <button class=" btn-tabla gestionar-usuario btn-warning" data-id="<?= $usuario['id'] ?>" data-accion="desactivar">Desactivar</button>
@@ -115,15 +119,19 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
+                <th>Apellido</th>
                 <th>Correo</th>
+                <th>Telefono</th>
                 <th>Rol</th>
                 <th>Acciones</th>
             </tr>
             <?php foreach ($usuariosInactivos as $usuario) : ?>
                 <tr id="usuario_<?= $usuario['id'] ?>">
-                    <td><?= $usuario['id'] ?></td>
+                <td><?= $usuario['id'] ?></td>
                     <td><?= $usuario['nombre'] ?></td>
+                    <td><?= $usuario['apellido'] ?></td>
                     <td><?= $usuario['correo'] ?></td>
+                    <td><?= $usuario['telefono'] ?></td>
                     <td><?= $usuario['rol'] ?></td>
                     <td>
                         <button class="btn-tabla gestionar-usuario btn-success" data-id="<?= $usuario['id'] ?>" data-accion="activar">Activar</button>
@@ -137,7 +145,9 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
+                <th>Apellido</th>
                 <th>Correo</th>
+                <th>Telefono</th>
                 <th>Rol</th>
                 <th>Acciones</th>
             </tr>
@@ -145,7 +155,9 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
                 <tr id="usuario_<?= $usuario['id'] ?>">
                     <td><?= $usuario['id'] ?></td>
                     <td><?= $usuario['nombre'] ?></td>
+                    <td><?= $usuario['apellido'] ?></td>
                     <td><?= $usuario['correo'] ?></td>
+                    <td><?= $usuario['telefono'] ?></td>
                     <td><?= $usuario['rol'] ?></td>
                     <td>
                         <button class="btn-tabla gestionar-usuario btn-primary" data-id="<?= $usuario['id'] ?>" data-accion="aprobar">Aprobar</button>
