@@ -178,19 +178,7 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
         </table>
         <button class="btn-tabla crear-genero btn-success">Crear Género</button>
     </div>
-<!-- Modal de Edición de Género -->
-<div id="modalEditarGenero" class="modal">
-    <div class="modal-contenido">
-        <span class="cerrar">&times;</span>
-        <h2>Editar Género</h2>
-        <form id="formEditarGenero">
-            <input type="hidden" id="editGeneroId">
-            <label for="editNombre">Nombre:</label>
-            <input type="text" id="editNombre" name="nombre" required>
-            <button type="submit" class="btn-tabla btn-success">Guardar Cambios</button>
-        </form>
-    </div>
-</div>
+
     <!-- Sección de Carteleras -->
     <div id="carteleras" class="seccion" style="display:none;">
         <h2>Carteleras</h2>
