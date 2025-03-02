@@ -52,9 +52,11 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
     <title>Panel de Administración</title>
     <link rel="stylesheet" href="../css/admin.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 <!-- SweetAlert2 CDN -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -255,42 +257,54 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
         <!-- Modal de Edición de Cartelera -->
         <div id="modalEditarCartelera" class="modal">
             <div class="modal-contenido">
-                <div class="modal-header">
-                    <span class="cerrar">&times;</span>
-                    <h2>Editar Cartelera</h2>
-                </div>
-                <form id="formEditarCartelera" enctype="multipart/form-data">
-    <input type="hidden" id="editCarteleraId" name="id">
-    <div>
-        <label for="editTitulo">Título</label>
-        <input type="text" id="editTitulo" name="titulo" required>
-    </div>
-    <div>
-        <label for="editDescripcion">Descripción</label>
-        <textarea id="editDescripcion" name="descripcion" required></textarea>
-    </div>
-    <div>
-        <label for="editDirector">Director</label>
-        <select id="editDirector" name="director" required>
-            <!-- Aquí se agregan los directores desde AJAX -->
-        </select>
-    </div>
-    <div>
-        <label for="editGeneros">Géneros</label>
-        <div id="editGeneros">
-            <!-- Los checkboxes se agregarán aquí dinámicamente con AJAX -->
-        </div>
-    </div>
+                <span class="cerrar">&times;</span>
+                <h2>Editar Cartelera</h2>
+                <form id="formEditarCartelera" method="POST" action="procesosAdmin/editarCartelera.php" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="<?= $cartelera['id'] ?>">
 
-    <div>
-        <label for="editImg">Imagen</label>
-        <input type="file" id="img" name="img">
-    </div>
-    <img id="prevImg" src="" alt="Imagen previa" style="max-width: 100px; display: none;">
-    <button type="submit">Guardar cambios</button>
-</form>
+                    <!-- Título -->
+                    <label for="editTitulo">Título:</label>
+                    <input type="text" id="editTitulo" name="titulo" value="<?= htmlspecialchars($cartelera['titulo']) ?>" required>
+
+                    <!-- Descripción -->
+                    <label for="editDescripcion">Descripción:</label>
+                    <textarea id="editDescripcion" name="descripcion" required><?= htmlspecialchars($cartelera['descripcion']) ?></textarea>
+
+                    <!-- Director -->
+                    <label for="editDirector">Director:</label>
+                    <select id="editDirector" name="director" required>
+                        <option value="">Selecciona un director</option>
+                        <?php foreach ($directores as $director): ?>
+                            <option value="<?= $director['id'] ?>" <?= $cartelera['id_director'] == $director['id'] ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($director['nombre']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <!-- Géneros -->
+                    <label for="editGeneros">Géneros:</label>
+                        <select id="editGeneros" name="generos[]" multiple size="5" required>
+                            <!-- Las opciones se llenan dinámicamente con los géneros -->
+                        </select>
+
+
+                    <!-- Imagen -->
+                    <label for="editImg">Imagen:</label>
+                    <input type="file" id="editImg" name="img">
+                    <?php if (!empty($cartelera['img'])): ?>
+                        <img id="prevImg" src="../img/<?= htmlspecialchars($cartelera['img']) ?>" alt="Imagen previa" style="max-width: 100px;">
+                    <?php else: ?>
+                        <span>No hay imagen</span>
+                    <?php endif; ?>
+
+                    <button type="submit" class="btn-tabla btn-success">Guardar cambios</button>
+                </form>
+
             </div>
         </div>
+
+
+
     </div>
 <!-- Modal para crear cartelera -->
 <div id="modalCrearCartelera" class="modal">
@@ -310,11 +324,11 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
                 <?php endforeach; ?>
             </select>
             <label for="crearGeneros">Géneros:</label>
-<select id="crearGeneros" name="generos[]" multiple size="5" required>
-    <?php foreach ($generos as $genero): ?>
-        <option value="<?= $genero['id'] ?>"><?= htmlspecialchars($genero['nombre']) ?></option>
-    <?php endforeach; ?>
-</select>
+                <select id="crearGeneros" name="generos[]" multiple size="5" required>
+                    <?php foreach ($generos as $genero): ?>
+                        <option value="<?= $genero['id'] ?>"><?= htmlspecialchars($genero['nombre']) ?></option>
+                    <?php endforeach; ?>
+                </select>
             <label for="crearImg">Imagen:</label>
             <input type="file" id="crearImg" name="img">
             <button type="submit" class="btn-tabla btn-success">Crear Cartelera</button>
@@ -326,13 +340,9 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
     <script src="../js/crearGenero.js"></script>
     <script src="../js/editarGenero.js"></script>
     <script src="../js/eliminarCartelera.js"></script>
-<<<<<<< HEAD
     <script src="../js/editarCartelera.js"></script>
     <script src="../js/eliminarGenero.js"></script>
     <script src="../js/crearCartelera.js"></script>
-=======
-    <script src="../js/eliminarGenero.js"></script>
->>>>>>> parent of 2a374c9 (EDITAR CARTELERA FUNCIONA MENOS IMAGEN)
 
 </body>
 </html>
