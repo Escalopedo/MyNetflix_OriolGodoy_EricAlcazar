@@ -68,7 +68,7 @@ INSERT INTO carteleras (titulo, descripcion, img, id_director) VALUES
   ('Matrix', 'Un hacker descubre que la realidad es una simulación creada por máquinas y se une a una rebelión para liberar a la humanidad.', 'matrix.jpg', 14),
   ('Coco', 'Un joven músico llamado Miguel viaja al mundo de los muertos para descubrir la historia de su familia y su conexión con la música.', 'coco.jpg', 15),
   ('El Conjuro', 'Una pareja de investigadores paranormales ayuda a una familia aterrorizada por una presencia maligna en su hogar.', 'el_conjuro.jpg', 16),
-  ('Interestelar', 'Un grupo de astronautas viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.', 'interestelar.jpg', 17);
+  ('Interestelar', 'Un grupo de astronautas viaja a través de un agujero de gusano en busca de un nuevo hogar para la humanidad.', 'interestelar.jpeg', 17);
 
 
 -- Relacionar películas con géneros
