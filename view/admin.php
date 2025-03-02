@@ -326,9 +326,13 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
     <script src="../js/crearGenero.js"></script>
     <script src="../js/editarGenero.js"></script>
     <script src="../js/eliminarCartelera.js"></script>
+<<<<<<< HEAD
     <script src="../js/editarCartelera.js"></script>
     <script src="../js/eliminarGenero.js"></script>
     <script src="../js/crearCartelera.js"></script>
+=======
+    <script src="../js/eliminarGenero.js"></script>
+>>>>>>> parent of 2a374c9 (EDITAR CARTELERA FUNCIONA MENOS IMAGEN)
 
 </body>
 </html>
