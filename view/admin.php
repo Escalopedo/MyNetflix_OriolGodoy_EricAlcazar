@@ -260,8 +260,8 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
                 <span class="cerrar">&times;</span>
                 <h2>Editar Cartelera</h2>
                 <form id="formEditarCartelera" method="POST" action="procesosAdmin/editarCartelera.php" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="<?= $cartelera['id'] ?>">
-
+                <input type="hidden" name="id" id="editCarteleraId" value="<?= $cartelera['id'] ?>">
+                
                     <!-- Título -->
                     <label for="editTitulo">Título:</label>
                     <input type="text" id="editTitulo" name="titulo" value="<?= htmlspecialchars($cartelera['titulo']) ?>" required>

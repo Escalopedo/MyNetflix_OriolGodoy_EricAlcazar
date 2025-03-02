@@ -2,29 +2,31 @@ $(document).ready(function() {
     // Editar Cartelera
     $(".editar-cartelera").click(function() {
         let carteleraId = $(this).data("id");
-        
+        console.log("ID de la cartelera:", carteleraId); // Depuración
+
         // Obtener datos de la cartelera
         $.ajax({
             url: "../php/procesosAdmin/editarCartelera.php",
-            type: "GET",  // Cambié de POST a GET
-            data: { id: carteleraId },  // Solo mandas el ID
+            type: "GET",
+            data: { id: carteleraId },
             dataType: "json",
             success: function(response) {
+                console.log("Respuesta del servidor:", response); // Depuración
                 if (response.status === 'success') {
                     // Asignar los datos de la cartelera
-                    $("#editCarteleraId").val(response.id);
-                    $("#editTitulo").val(response.titulo);
-                    $("#editDescripcion").val(response.descripcion);
+                    $("#editCarteleraId").val(response.data.id);
+                    $("#editTitulo").val(response.data.titulo);
+                    $("#editDescripcion").val(response.data.descripcion);
 
                     // Cargar directores
-                    loadDirectores(response.id_director);
+                    loadDirectores(response.data.id_director);
 
                     // Cargar géneros
-                    loadGeneros(response.generos);
+                    loadGeneros(response.data.generos);
 
                     // Imagen previa
-                    if (response.img) {
-                        $("#prevImg").attr("src", "../img/" + response.img);
+                    if (response.data.img) {
+                        $("#prevImg").attr("src", "../img/" + response.data.img);
                     } else {
                         $("#prevImg").attr("src", "");
                     }
@@ -34,16 +36,17 @@ $(document).ready(function() {
                 } else {
                     Swal.fire({
                         title: 'Error',
-                        text: response.message,
+                        text: response.message || 'Error desconocido',
                         icon: 'error',
                         confirmButtonText: 'Aceptar'
                     });
                 }
             },
-            error: function() {
+            error: function(xhr, status, error) {
+                console.error("Error en la solicitud AJAX:", status, error); // Depuración
                 Swal.fire({
                     title: 'Error',
-                    text: 'No se pudo obtener la información.',
+                    text: 'No se pudo obtener la información. Verifica la consola para más detalles.',
                     icon: 'error',
                     confirmButtonText: 'Aceptar'
                 });
@@ -65,41 +68,51 @@ $(document).ready(function() {
                         `<option value="${director.id}" ${selected}>${director.nombre}</option>`
                     );
                 });
+            },
+            error: function(xhr, status, error) {
+                console.error("Error al cargar directores:", status, error); // Depuración
+                Swal.fire({
+                    title: 'Error',
+                    text: 'No se pudo cargar los directores.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
             }
         });
     }
-// Función para cargar géneros en el formulario con el <select>
-function loadGeneros(selectedGeneros) {
-    $.ajax({
-        url: "../php/procesosAdmin/getGeneros.php",
-        type: "GET",
-        dataType: "json",
-        success: function(generos) {
-            $("#editGeneros").empty(); // Limpiar las opciones anteriores del <select>
 
-            if (generos && generos.length > 0) {
-                generos.forEach(function(genero) {
-                    // Verifica si el género está seleccionado
-                    let selected = selectedGeneros.includes(genero.id.toString()) ? "selected" : "";
-                    $("#editGeneros").append(
-                        `<option value="${genero.id}" ${selected}>${genero.nombre}</option>`
-                    );
+    // Función para cargar géneros en el formulario con el <select>
+    function loadGeneros(selectedGeneros) {
+        $.ajax({
+            url: "../php/procesosAdmin/getGeneros.php",
+            type: "GET",
+            dataType: "json",
+            success: function(generos) {
+                $("#editGeneros").empty(); // Limpiar las opciones anteriores del <select>
+
+                if (generos && generos.length > 0) {
+                    generos.forEach(function(genero) {
+                        // Verifica si el género está seleccionado
+                        let selected = selectedGeneros.includes(genero.id.toString()) ? "selected" : "";
+                        $("#editGeneros").append(
+                            `<option value="${genero.id}" ${selected}>${genero.nombre}</option>`
+                        );
+                    });
+                } else {
+                    $("#editGeneros").append('<option value="">No se encontraron géneros disponibles</option>');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Error al cargar géneros:", status, error); // Depuración
+                Swal.fire({
+                    title: 'Error',
+                    text: 'No se pudo cargar los géneros.',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
                 });
-            } else {
-                $("#editGeneros").append('<option value="">No se encontraron géneros disponibles</option>');
             }
-        },
-        error: function() {
-            Swal.fire({
-                title: 'Error',
-                text: 'No se pudo cargar los géneros.',
-                icon: 'error',
-                confirmButtonText: 'Aceptar'
-            });
-        }
-    });
-}
-
+        });
+    }
 
     // Cerrar modal
     $(".cerrar").click(function() {
@@ -119,17 +132,19 @@ function loadGeneros(selectedGeneros) {
             processData: false,
             dataType: "json",
             success: function(response) {
+                console.log("Respuesta del servidor:", response); // Depuración
                 if (response.status === 'success') {
                     Swal.fire("Actualizado", response.message, "success");
                     $("#modalEditarCartelera").fadeOut();
                     // Opcional: Actualizar la fila de la cartelera editada en la página
                     // location.reload();
                 } else {
-                    Swal.fire("Error", response.message, "error");
+                    Swal.fire("Error", response.message || 'Error desconocido', "error");
                 }
             },
-            error: function() {
-                Swal.fire("Error", "No se pudo guardar la cartelera.", "error");
+            error: function(xhr, status, error) {
+                console.error("Error en la solicitud AJAX:", status, error); // Depuración
+                Swal.fire("Error", "No se pudo guardar la cartelera. Verifica la consola para más detalles.", "error");
             }
         });
     });
