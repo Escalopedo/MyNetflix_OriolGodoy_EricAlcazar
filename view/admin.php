@@ -171,6 +171,7 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
     <!-- Sección de Géneros -->
     <div id="generos" class="seccion" style="display:none;">
         <h2>Géneros</h2>
+        <button class="btn-tabla crear-genero btn-success">Crear Género</button>
         <table>
             <tr>
                 <th>ID</th>
@@ -188,7 +189,6 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
                 </tr>
             <?php endforeach; ?>
         </table>
-        <button class="btn-tabla crear-genero btn-success">Crear Género</button>
     </div>
 <!-- Modal de Edición de Género -->
 <div id="modalEditarGenero" class="modal">
@@ -219,6 +219,7 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
     <!-- Sección de Carteleras -->
     <div id="carteleras" class="seccion" style="display:none;">
         <h2>Carteleras</h2>
+        <button class="btn-tabla crear-cartelera btn-success">Crear Cartelera</button>
         <table>
             <tr>
                 <th>ID</th>
@@ -250,7 +251,6 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
                 </tr>
             <?php endforeach; ?>
         </table>
-        <button class="btn-tabla crear-cartelera btn-success">Crear Cartelera</button>
         
         <!-- Modal de Edición de Cartelera -->
         <div id="modalEditarCartelera" class="modal">
