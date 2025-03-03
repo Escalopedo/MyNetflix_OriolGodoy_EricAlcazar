@@ -106,9 +106,6 @@ $peliculas = $resultPeliculas->fetchAll(PDO::FETCH_ASSOC);
                         <img src="../img/<?php echo $pelicula['img']; ?>" alt="<?php echo $pelicula['titulo']; ?>">
                         <p class="titulo"><?php echo $pelicula['titulo']; ?></p>
                     </a>
-                    <?php if ($loggedIn): ?>
-                        <a href='like_pelicula.php?id=<?php echo $pelicula['id']; ?>' class="like-button">Like</a>
-                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         </div>

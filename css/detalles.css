@@ -1,9 +1,14 @@
-/* Estilos generales */
+@font-face {
+    font-family: 'Bebas Neue';
+    src: url('../fonts/BebasNeue.otf') format('opentype'); /* Ruta al archivo .otf */
+    font-weight: normal; 
+    font-style: normal;  
+}
 
 body {
     background-color: #141414;
     color: white;
-    font-family: "Funnel Sans", serif;
+    font-family: 'Bebas Neue', sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
     margin: 0;
@@ -101,6 +106,7 @@ nav ul li a:hover {
     border-radius: 5px;
     cursor: pointer;
     margin-top: 20px;
+    font-family: 'Bebas Neue', sans-serif;
 }
 
 .like-button:hover {
@@ -120,4 +126,33 @@ nav ul li a:hover {
 
 .back-button:hover {
     background-color: #333;
+}
+
+/* Detalle del director */
+#detalle-director {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.detalle-container {
+    display: flex;
+    width: 80%;
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
+    gap: 20px;
+}
+
+.detalle-imagen {
+    display: flex;
+    justify-content: center; /* Centra la imagen dentro del div */
+    align-items: center; /* Centra la imagen verticalmente */
+}
+
+.detalle-imagen img {
+    max-width: 100%; /* Hace que la imagen se ajuste al contenedor sin salirse */
+    height: auto; /* Mantiene la proporción de la imagen */
+    object-fit: contain; /* Hace que la imagen se ajuste sin deformarse */
+    border-radius: 8px;
 }

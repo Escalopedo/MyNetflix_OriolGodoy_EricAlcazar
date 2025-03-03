@@ -64,3 +64,47 @@ $(document).ready(function() {
         });
     });
 });
+
+// Función para validar el nombre del género en el modal de edición
+function validarEditNombreGenero() {
+    const nombreGenero = document.getElementById('editNombre').value.trim();
+    const errorNombreGenero = document.getElementById('errorEditNombreGenero');
+
+    if (nombreGenero === '') {
+        errorNombreGenero.textContent = 'Por favor, ingresa un nombre para el género.';
+        errorNombreGenero.style.display = 'block';
+        return false;
+    } else if (nombreGenero.length < 3 || nombreGenero.length > 50) {
+        errorNombreGenero.textContent = 'El nombre debe tener entre 3 y 50 caracteres.';
+        errorNombreGenero.style.display = 'block';
+        return false;
+    } else if (!/^[a-zA-Z\sáéíóúÁÉÍÓÚñÑ\-]+$/.test(nombreGenero)) {
+        errorNombreGenero.textContent = 'El nombre solo puede contener letras, espacios, guiones y caracteres especiales (á, é, í, ó, ú, ñ).';
+        errorNombreGenero.style.display = 'block';
+        return false;
+    } else {
+        errorNombreGenero.style.display = 'none';
+        return true;
+    }
+}
+
+// Función para validar todo el formulario de edición de género
+function validarEditFormularioGenero() {
+    const esNombreValido = validarEditNombreGenero();
+
+    // Habilitar o deshabilitar el botón de enviar
+    const btnEditGenero = document.getElementById('btnEditGenero');
+    if (esNombreValido) {
+        btnEditGenero.disabled = false; // Habilitar el botón
+    } else {
+        btnEditGenero.disabled = true; // Deshabilitar el botón
+    }
+}
+
+// Validar el formulario al intentar enviar
+document.getElementById('formEditarGenero').addEventListener('submit', function(event) {
+    validarEditFormularioGenero(); // Validar antes de enviar
+    if (document.getElementById('btnEditGenero').disabled) {
+        event.preventDefault(); // Evitar envío si el botón está deshabilitado
+    }
+});

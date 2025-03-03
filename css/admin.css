@@ -196,19 +196,25 @@ tr:hover {
 
 /* Modal */
 
+
+/* Estilos para el modal */
+
 .modal {
     display: none;
     /* Oculto por defecto */
     position: fixed;
     z-index: 1000;
-    top: 8%;
-    /* Centrado vertical */
+    top: 0%;
     left: 30%;
-    /* Centrado horizontal */
     width: 100%;
     height: 100%;
+    /* Fondo semitransparente */
     justify-content: center;
+    /* Centrado horizontal */
     align-items: center;
+    /* Centrado vertical */
+    overflow: auto;
+    /* Permite scroll si el contenido es muy largo */
 }
 
 .modal-contenido {
@@ -221,6 +227,10 @@ tr:hover {
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
     text-align: left;
     position: relative;
+    overflow-y: auto;
+    /* Habilita el scroll si el contenido es muy largo */
+    max-height: 100vh;
+    /* Limita la altura del modal */
 }
 
 .cerrar {
@@ -267,15 +277,21 @@ tr:hover {
     margin-top: 15px;
 }
 
+
 /* Para los campos a la derecha */
+
 .modal-contenido .campo-derecha {
     display: flex;
-    flex-direction: row-reverse; /* Coloca los campos a la derecha */
+    flex-direction: row-reverse;
+    /* Coloca los campos a la derecha */
     align-items: flex-start;
-    gap: 20px; /* Espacio entre el label y el input/select */
+    gap: 20px;
+    /* Espacio entre el label y el input/select */
 }
 
+
 /* Para los campos que no están alineados a la derecha */
+
 .modal-contenido .campo-izquierda {
     display: block;
     margin-bottom: 10px;
@@ -286,6 +302,14 @@ tr:hover {
     margin: 10px auto;
     max-width: 100%;
     border-radius: 8px;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: none;
+    /* Ocultar por defecto */
 }
 
 
@@ -303,4 +327,13 @@ tr:hover {
 
 a {
     text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .modal-contenido {
+        width: 90%;
+        /* Ocupa más espacio en pantallas pequeñas */
+        max-width: none;
+        /* Elimina el límite máximo de ancho */
+    }
 }
