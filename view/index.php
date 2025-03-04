@@ -110,7 +110,6 @@ $peliculas = $resultPeliculas->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </div>
     </section>
-    <script src="../js/slider.js"></script>
     <script src="../js/filtrosAjax.js"></script>
 </body>
 </html>
