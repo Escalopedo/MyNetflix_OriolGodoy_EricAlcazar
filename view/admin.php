@@ -196,6 +196,9 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
         <span class="cerrar">&times;</span>
         <h2>Editar Género</h2>
         <form id="formEditarGenero">
+            <!-- Campo oculto para almacenar el ID -->
+            <input type="hidden" id="editGeneroId" name="id">
+            
             <!-- Campo Nombre -->
             <label for="editNombre">Nombre:</label>
             <input type="text" id="editNombre" name="nombre" onblur="validarEditNombreGenero()" oninput="validarEditFormularioGenero()">
@@ -346,7 +349,7 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
             <label for="crearGeneros">Géneros:</label>
             <select id="crearGeneros" name="generos[]" multiple size="5" required onblur="validarGeneros()" onchange="validarFormulario()">
                 <?php foreach ($generos as $genero): ?>
-                    <option value="<?= $genero['id'] ?>"><?= htmlspecialchars($genero['nombre']) ?></option>
+                    <option value="<?= $genero['id'] ?>"><?= $genero['nombre'] ?></option>
                 <?php endforeach; ?>
             </select>
             <p id="errorGeneros" class="error-message"></p>
