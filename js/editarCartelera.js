@@ -81,14 +81,14 @@ $(document).ready(function() {
         });
     }
 
-    // Función para cargar géneros en el formulario con el <select>
+    // Función para cargar géneros en el formulario
     function loadGeneros(selectedGeneros) {
         $.ajax({
             url: "../php/procesosAdmin/getGeneros.php",
             type: "GET",
             dataType: "json",
             success: function(generos) {
-                $("#editGeneros").empty(); // Limpiar las opciones anteriores del <select>
+                $("#editGeneros").empty(); // Limpiar las opciones anteriores
 
                 if (generos && generos.length > 0) {
                     generos.forEach(function(genero) {
@@ -99,7 +99,7 @@ $(document).ready(function() {
                         );
                     });
                 } else {
-                    $("#editGeneros").append('<option value="">No se encontraron géneros disponibles</option>');
+                    $("#editGeneros").append('<option>No se encontraron géneros disponibles</option>');
                 }
             },
             error: function(xhr, status, error) {
@@ -117,6 +117,7 @@ $(document).ready(function() {
     // Cerrar modal
     $(".cerrar").click(function() {
         $("#modalEditarCartelera").fadeOut();
+        $("#formEditarCartelera")[0].reset(); // Limpiar formulario
     });
 
     // Guardar cambios en la cartelera
@@ -134,145 +135,156 @@ $(document).ready(function() {
             success: function(response) {
                 console.log("Respuesta del servidor:", response); // Depuración
                 if (response.status === 'success') {
-                    Swal.fire("Actualizado", response.message, "success");
-                    $("#modalEditarCartelera").fadeOut();
-                    // Opcional: Actualizar la fila de la cartelera editada en la página
-                    // location.reload();
+                    Swal.fire({
+                        title: 'Éxito!',
+                        text: response.message,
+                        icon: 'success'
+                    }).then(() => {
+                        location.reload(); // Recargar página
+                    });
                 } else {
-                    Swal.fire("Error", response.message || 'Error desconocido', "error");
+                    Swal.fire({
+                        title: 'Error',
+                        text: response.message || 'Error desconocido',
+                        icon: 'error'
+                    });
                 }
             },
             error: function(xhr, status, error) {
                 console.error("Error en la solicitud AJAX:", status, error); // Depuración
-                Swal.fire("Error", "No se pudo guardar la cartelera. Verifica la consola para más detalles.", "error");
+                Swal.fire({
+                    title: 'Error',
+                    text: 'No se pudo guardar la cartelera. Verifica la consola para más detalles.',
+                    icon: 'error'
+                });
             }
         });
     });
-});
 
-// Función para validar el título en el modal de edición
-function validarEditTitulo() {
-    const titulo = document.getElementById('editTitulo').value.trim();
-    const errorTitulo = document.getElementById('errorEditTitulo');
+    // Validaciones
+    function validarEditTitulo() {
+        const titulo = document.getElementById('editTitulo').value.trim();
+        const errorTitulo = document.getElementById('errorEditTitulo');
 
-    if (titulo === '') {
-        errorTitulo.textContent = 'Por favor, ingresa un título.';
-        errorTitulo.style.display = 'block';
-        return false;
-    } else if (titulo.length < 5 || titulo.length > 100) {
-        errorTitulo.textContent = 'El título debe tener entre 5 y 100 caracteres.';
-        errorTitulo.style.display = 'block';
-        return false;
-    } else if (!/^[a-zA-Z0-9\s.,\-]+$/.test(titulo)) {
-        errorTitulo.textContent = 'El título solo puede contener letras, números, espacios, comas, puntos y guiones.';
-        errorTitulo.style.display = 'block';
-        return false;
-    } else {
-        errorTitulo.style.display = 'none';
-        return true;
-    }
-}
-
-// Función para validar la descripción en el modal de edición
-function validarEditDescripcion() {
-    const descripcion = document.getElementById('editDescripcion').value.trim();
-    const errorDescripcion = document.getElementById('errorEditDescripcion');
-
-    if (descripcion === '') {
-        errorDescripcion.textContent = 'Por favor, ingresa una descripción.';
-        errorDescripcion.style.display = 'block';
-        return false;
-    } else if (descripcion.length < 10 || descripcion.length > 500) {
-        errorDescripcion.textContent = 'La descripción debe tener entre 10 y 500 caracteres.';
-        errorDescripcion.style.display = 'block';
-        return false;
-    } else {
-        errorDescripcion.style.display = 'none';
-        return true;
-    }
-}
-
-// Función para validar el director en el modal de edición
-function validarEditDirector() {
-    const director = document.getElementById('editDirector').value;
-    const errorDirector = document.getElementById('errorEditDirector');
-
-    if (director === '') {
-        errorDirector.textContent = 'Por favor, selecciona un director.';
-        errorDirector.style.display = 'block';
-        return false;
-    } else {
-        errorDirector.style.display = 'none';
-        return true;
-    }
-}
-
-// Función para validar los géneros en el modal de edición
-function validarEditGeneros() {
-    const generos = document.querySelectorAll('#editGeneros input[type="checkbox"]:checked');
-    const errorGeneros = document.getElementById('errorEditGeneros');
-
-    if (generos.length === 0) {
-        errorGeneros.textContent = 'Por favor, selecciona al menos un género.';
-        errorGeneros.style.display = 'block';
-        return false;
-    } else if (generos.length > 3) {
-        errorGeneros.textContent = 'No puedes seleccionar más de 3 géneros.';
-        errorGeneros.style.display = 'block';
-        return false;
-    } else {
-        errorGeneros.style.display = 'none';
-        return true;
-    }
-}
-
-// Función para validar la imagen en el modal de edición
-function validarEditImagen() {
-    const img = document.getElementById('editImg').files[0];
-    const errorImg = document.getElementById('errorEditImg');
-
-    if (img) {
-        // Validar el tipo de archivo
-        const tiposPermitidos = ['image/jpeg', 'image/png', 'image/gif'];
-        if (!tiposPermitidos.includes(img.type)) {
-            errorImg.textContent = 'Por favor, sube una imagen válida (JPEG, PNG, GIF).';
-            errorImg.style.display = 'block';
+        if (titulo === '') {
+            errorTitulo.textContent = 'Por favor, ingresa un título.';
+            errorTitulo.style.display = 'block';
             return false;
-        }
-
-        // Validar el tamaño del archivo (no más de 5 MB)
-        const tamañoMaximo = 5 * 1024 * 1024; // 5 MB
-        if (img.size > tamañoMaximo) {
-            errorImg.textContent = 'La imagen no puede superar los 5 MB.';
-            errorImg.style.display = 'block';
+        } else if (titulo.length < 5 || titulo.length > 100) {
+            errorTitulo.textContent = 'El título debe tener entre 5 y 100 caracteres.';
+            errorTitulo.style.display = 'block';
             return false;
+        } else if (!/^[a-zA-Z0-9\s.,\-]+$/.test(titulo)) {
+            errorTitulo.textContent = 'El título solo puede contener letras, números, espacios, comas, puntos y guiones.';
+            errorTitulo.style.display = 'block';
+            return false;
+        } else {
+            errorTitulo.style.display = 'none';
+            return true;
         }
     }
-    errorImg.style.display = 'none';
-    return true;
-}
 
-// Función para validar todo el formulario de edición
-function validarEditFormulario() {
-    const esTituloValido = validarEditTitulo();
-    const esDescripcionValida = validarEditDescripcion();
-    const esDirectorValido = validarEditDirector();
-    const esGenerosValido = validarEditGeneros();
-    const esImagenValida = validarEditImagen();
+    function validarEditDescripcion() {
+        const descripcion = document.getElementById('editDescripcion').value.trim();
+        const errorDescripcion = document.getElementById('errorEditDescripcion');
 
-    // Habilitar o deshabilitar el botón de enviar
-    const btnEditEnviar = document.getElementById('btnEditEnviar');
-    if (esTituloValido && esDescripcionValida && esDirectorValido && esGenerosValido && esImagenValida) {
-        btnEditEnviar.disabled = false; // Habilitar el botón
-    } else {
-        btnEditEnviar.disabled = true; // Deshabilitar el botón
+        if (descripcion === '') {
+            errorDescripcion.textContent = 'Por favor, ingresa una descripción.';
+            errorDescripcion.style.display = 'block';
+            return false;
+        } else if (descripcion.length < 10 || descripcion.length > 500) {
+            errorDescripcion.textContent = 'La descripción debe tener entre 10 y 500 caracteres.';
+            errorDescripcion.style.display = 'block';
+            return false;
+        } else {
+            errorDescripcion.style.display = 'none';
+            return true;
+        }
     }
-}
 
-// Validar el formulario al intentar enviar
-document.getElementById('formEditarCartelera').addEventListener('submit', function(event) {
-    validarEditFormulario(); // Validar antes de enviar
-    if (document.getElementById('btnEditEnviar').disabled) {
-        event.preventDefault(); // Evitar envío si el botón está deshabilitado
+    function validarEditDirector() {
+        const director = document.getElementById('editDirector').value;
+        const errorDirector = document.getElementById('errorEditDirector');
+
+        if (director === '') {
+            errorDirector.textContent = 'Por favor, selecciona un director.';
+            errorDirector.style.display = 'block';
+            return false;
+        } else {
+            errorDirector.style.display = 'none';
+            return true;
+        }
     }
+
+    function validarEditGeneros() {
+        const generos = document.querySelectorAll('#editGeneros option:selected');
+        const errorGeneros = document.getElementById('errorEditGeneros');
+
+        if (generos.length === 0) {
+            errorGeneros.textContent = 'Por favor, selecciona al menos un género.';
+            errorGeneros.style.display = 'block';
+            return false;
+        } else if (generos.length > 3) {
+            errorGeneros.textContent = 'No puedes seleccionar más de 3 géneros.';
+            errorGeneros.style.display = 'block';
+            return false;
+        } else {
+            errorGeneros.style.display = 'none';
+            return true;
+        }
+    }
+
+    function validarEditImagen() {
+        const img = document.getElementById('editImg').files[0];
+        const errorImg = document.getElementById('errorEditImg');
+
+        if (img) {
+            // Validar el tipo de archivo
+            const tiposPermitidos = ['image/jpeg', 'image/png', 'image/gif'];
+            if (!tiposPermitidos.includes(img.type)) {
+                errorImg.textContent = 'Por favor, sube una imagen válida (JPEG, PNG, GIF).';
+                errorImg.style.display = 'block';
+                return false;
+            }
+
+            // Validar el tamaño del archivo (no más de 5 MB)
+            const tamañoMaximo = 5 * 1024 * 1024; // 5 MB
+            if (img.size > tamañoMaximo) {
+                errorImg.textContent = 'La imagen no puede superar los 5 MB.';
+                errorImg.style.display = 'block';
+                return false;
+            }
+        }
+        errorImg.style.display = 'none';
+        return true;
+    }
+
+    // Validar todo el formulario
+    function validarEditFormulario() {
+        const validaciones = [
+            validarEditTitulo(),
+            validarEditDescripcion(),
+            validarEditDirector(),
+            validarEditGeneros(),
+            validarEditImagen()
+        ];
+
+        const btnEnviar = document.getElementById('btnEditEnviar');
+        btnEnviar.disabled = !validaciones.every(Boolean);
+    }
+
+    // Eventos de validación en tiempo real
+    $('#editTitulo').on('input', validarEditFormulario);
+    $('#editDescripcion').on('input', validarEditFormulario);
+    $('#editDirector').on('change', validarEditFormulario);
+    $('#editGeneros').on('change', validarEditFormulario);
+    $('#editImg').on('change', validarEditFormulario);
+
+    // Validar al enviar el formulario
+    document.getElementById('formEditarCartelera').addEventListener('submit', function(event) {
+        validarEditFormulario(); // Validar antes de enviar
+        if (document.getElementById('btnEditEnviar').disabled) {
+            event.preventDefault(); // Evitar envío si hay errores
+        }
+    });
 });

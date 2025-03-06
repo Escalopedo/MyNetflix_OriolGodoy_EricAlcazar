@@ -260,65 +260,58 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
         </table>
         <button class="btn-tabla crear-cartelera btn-success">Crear Cartelera</button>
         
-     <!-- Modal de Edición de Cartelera -->
+<!-- Modal de Edición de Cartelera -->
 <div id="modalEditarCartelera" class="modal">
-    <div class="modal-contenido">
-        <div class="modal-header">
-            <span class="cerrar">&times;</span>
-            <h2>Editar Cartelera</h2>
+            <div class="modal-contenido">
+                <span class="cerrar">&times;</span>
+                <h2>Editar Cartelera</h2>
+                <form id="formEditarCartelera" method="POST" action="procesosAdmin/editarCartelera.php" enctype="multipart/form-data">
+                <input type="hidden" name="id" id="editCarteleraId" value="<?= $cartelera['id'] ?>">
+                
+                    <!-- Título -->
+                    <label for="editTitulo">Título:</label>
+                    <input type="text" id="editTitulo" name="titulo" value="<?= htmlspecialchars($cartelera['titulo']) ?>" >
+
+                    <!-- Descripción -->
+                    <label for="editDescripcion">Descripción:</label>
+                    <textarea id="editDescripcion" name="descripcion" ><?= htmlspecialchars($cartelera['descripcion']) ?></textarea>
+
+                    <!-- Director -->
+                    <label for="editDirector">Director:</label>
+                    <select id="editDirector" name="director" >
+                        <option value="">Selecciona un director</option>
+                        <?php foreach ($directores as $director): ?>
+                            <option value="<?= $director['id'] ?>" <?= $cartelera['id_director'] == $director['id'] ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($director['nombre']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <!-- Géneros -->
+                    <label for="editGeneros">Géneros:</label>
+                        <select id="editGeneros" name="generos[]" multiple size="5" >
+                            <!-- Las opciones se llenan dinámicamente con los géneros -->
+                        </select>
+
+
+                    <!-- Imagen -->
+                    <label for="editImg">Imagen:</label>
+                    <input type="file" id="editImg" name="img">
+                    <?php if (!empty($cartelera['img'])): ?>
+                        <img id="prevImg" src="../img/<?= htmlspecialchars($cartelera['img']) ?>" alt="Imagen previa" style="max-width: 100px;">
+                    <?php else: ?>
+                        <span>No hay imagen</span>
+                    <?php endif; ?>
+
+                    <button type="submit" class="btn-tabla btn-success">Guardar cambios</button>
+                </form>
+
+            </div>
         </div>
-        <form id="formEditarCartelera" enctype="multipart/form-data">
-            <!-- Campo oculto para el ID -->
-            <input type="hidden" id="editCarteleraId" name="id">
 
-            <!-- Campo Título -->
-            <div>
-                <label for="editTitulo">Título:</label>
-                <input type="text" id="editTitulo" name="titulo" onblur="validarEditTitulo()" oninput="validarEditFormulario()">
-                <p id="errorEditTitulo" class="error-message"></p>
-            </div>
 
-            <!-- Campo Descripción -->
-            <div>
-                <label for="editDescripcion">Descripción:</label>
-                <textarea id="editDescripcion" name="descripcion" onblur="validarEditDescripcion()" oninput="validarEditFormulario()"></textarea>
-                <p id="errorEditDescripcion" class="error-message"></p>
-            </div>
 
-            <!-- Campo Director -->
-            <div>
-                <label for="editDirector">Director:</label>
-                <select id="editDirector" name="director" onblur="validarEditDirector()" onchange="validarEditFormulario()">
-                    <!-- Aquí se agregan los directores desde AJAX -->
-                </select>
-                <p id="errorEditDirector" class="error-message"></p>
-            </div>
-
-            <!-- Campo Géneros -->
-            <div>
-                <label for="editGeneros">Géneros:</label>
-                <div id="editGeneros">
-                    <!-- Los checkboxes se agregarán aquí dinámicamente con AJAX -->
-                </div>
-                <p id="errorEditGeneros" class="error-message"></p>
-            </div>
-
-            <!-- Campo Imagen -->
-            <div>
-                <label for="editImg">Imagen:</label>
-                <input type="file" id="editImg" name="img" onblur="validarEditImagen()" onchange="validarEditFormulario()">
-                <p id="errorEditImg" class="error-message"></p>
-            </div>
-
-            <!-- Imagen previa -->
-            <img id="prevImg" src="" alt="Imagen previa" style="max-width: 100px; display: none;">
-
-            <!-- Botón de enviar (deshabilitado por defecto) -->
-            <button type="submit" id="btnEditEnviar" disabled>Guardar cambios</button>
-        </form>
     </div>
-</div>
-
 <div id="modalCrearCartelera" class="modal">
     <div class="modal-contenido">
         <span class="cerrar">&times;</span>
@@ -327,17 +320,17 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
         <p id="errorGeneral" class="error-message"></p>
             <!-- Campo Título -->
             <label for="crearTitulo">Título:</label>
-            <input type="text" id="crearTitulo" name="titulo" required onblur="validarTitulo()" oninput="validarFormulario()">
+            <input type="text" id="crearTitulo" name="titulo"  onblur="validarTitulo()" oninput="validarFormulario()">
             <p id="errorTitulo" class="error-message"></p>
 
             <!-- Campo Descripción -->
             <label for="crearDescripcion">Descripción:</label>
-            <textarea id="crearDescripcion" name="descripcion" required onblur="validarDescripcion()" oninput="validarFormulario()"></textarea>
+            <textarea id="crearDescripcion" name="descripcion"  onblur="validarDescripcion()" oninput="validarFormulario()"></textarea>
             <p id="errorDescripcion" class="error-message"></p>
 
             <!-- Campo Director -->
             <label for="crearDirector">Director:</label>
-            <select id="crearDirector" name="director" required onblur="validarDirector()" onchange="validarFormulario()">
+            <select id="crearDirector" name="director"  onblur="validarDirector()" onchange="validarFormulario()">
                 <option value="">Selecciona un director</option>
                 <?php foreach ($directores as $director): ?>
                     <option value="<?= $director['id'] ?>"><?= htmlspecialchars($director['nombre']) ?></option>
@@ -347,7 +340,7 @@ $carteleras = $conexion->query($queryCarteleras)->fetchAll(PDO::FETCH_ASSOC);
 
             <!-- Campo Géneros -->
             <label for="crearGeneros">Géneros:</label>
-            <select id="crearGeneros" name="generos[]" multiple size="5" required onblur="validarGeneros()" onchange="validarFormulario()">
+            <select id="crearGeneros" name="generos[]" multiple size="5"  onblur="validarGeneros()" onchange="validarFormulario()">
                 <?php foreach ($generos as $genero): ?>
                     <option value="<?= $genero['id'] ?>"><?= $genero['nombre'] ?></option>
                 <?php endforeach; ?>
